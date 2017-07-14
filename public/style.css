@@ -1,35 +1,39 @@
 body {
-	/*background: deepskyblue !important;*/
 	background-image: url(images/pond-crop.gif);
 	background-size: cover;
 	background-repeat: none;
 	padding: 30px;
 }
 
-#board{
+#main{
   margin: 0 auto;
  /* border: 5px solid rgba(0, 255, 0, .5);*/
- border-radius: 800px;
- /* width: 100%;*/
+ 	border-radius: 800px;
+ 	border-collapse: collapse;
   background-image: url(images/pond-square.gif);
   background-size: 100%;
   background-repeat: none;
 }
 
-#board td{
-	/*border: 1.5px solid rgba(0, 255, 0, .20);*/
+#main td{
   width: 18px;
   height: 18px;
+  border: none;
+}
+
+td.dormant {
+	background-image: none;
 }
 
 td.alive {
-  background-image: url(images/monet-1.jpg);
+  background-color: none;
   background-size: 100%;
 }
 
 td.dead {
-  background-image: url(images/fire.gif);
-  background-size: 100%
+  background-color: #ecf0f1;
+  background-size: 100%;
+  opacity: 50%;
 }
 
 #footer {

@@ -1,161 +1,91 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, {
-/******/ 				configurable: false,
-/******/ 				enumerable: true,
-/******/ 				get: getter
-/******/ 			});
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ (function(module, exports) {
-
 let GOL = {
 	width: 30,
 	height: 30,
 	interval: null,
 	cells: {}
+}
 
-	// set each cell to a volume level audio.volume=number btw 0.0 and 1.0
-	// make the volume a number relative to the person's chosen number{?}
-	// i wonder if there could be spatialization of the sound.... 
-	// each cell is a PannerNode that is turned on or off depending on the cell status
+// set each cell to a volume level audio.volume=number btw 0.0 and 1.0
+// make the volume a number relative to the person's chosen number{?}
+// i wonder if there could be spatialization of the sound.... 
+// each cell is a PannerNode that is turned on or off depending on the cell status
 
 
-};let setUpBoardEvents = () => {
-	const onCellClick = cell => {
-		let cellId = cell.id;
-		if (GOL.cells[cellId] === 'dormant') {
-			GOL.cells[cellId] = 'alive';
-			cell.className = 'alive';
-		}
-		// } else {
-		// 	GOL.cells[cellId] = 'dead';
-		// 	cell.className = 'dead';
-		// }
-	};
+let setUpBoardEvents = () => {
+		const onCellClick = (cell) => {
+			let cellId = cell.id
+			if (GOL.cells[cellId] === 'dormant') {
+				GOL.cells[cellId] = 'alive';
+				cell.className = 'alive';
+			}
+			// } else {
+			// 	GOL.cells[cellId] = 'dead';
+			// 	cell.className = 'dead';
+			// }
+		};
 
-	let board = document.getElementById('main');
-	board.addEventListener('mousedown', evt => {
-		// console.log('mousedown target', evt.target, 'id', evt.target.id)
-		let cell = evt.target;
-		onCellClick(cell);
-	});
-	let play = document.getElementById('button');
-	play.addEventListener('click', evt => togglePlay());
-};
+		let board = document.getElementById('main');
+		board.addEventListener('mousedown', (evt) => {
+			// console.log('mousedown target', evt.target, 'id', evt.target.id)
+			let cell = evt.target
+			onCellClick(cell)
+		})
+		let play = document.getElementById('button');
+		play.addEventListener('click', evt => togglePlay())
+
+}
 
 let createAndShowBoard = () => {
-	// const cells = new Array(this.height * this.width);
-	const main = document.getElementById('main');
-	const board = document.createElement('tbody');
-	main.appendChild(board);
+		// const cells = new Array(this.height * this.width);
+		const main = document.getElementById('main');
+		const board = document.createElement('tbody');
+		main.appendChild(board);
 
-	for (let i = 0; i < GOL.width; i++) {
-		let row = document.createElement('tr');
-		row.id = i;
-		board.appendChild(row);
+		for (let i = 0; i < GOL.width; i++) {
+			let row = document.createElement('tr');
+			row.id = i
+			board.appendChild(row);
 
-		for (let j = 0; j < GOL.height; j++) {
-			GOL.cells[`${i}-${j}`] = 'dormant';
-			let cell = document.createElement('td');
-			cell.id = `${i}-${j}`;
-			cell.className = 'dormant';
-			row.appendChild(cell);
+			for (let j = 0; j < GOL.height; j++) {
+				GOL.cells[`${i}-${j}`] = 'dormant'
+				let cell = document.createElement('td');
+				cell.id = `${i}-${j}`
+				cell.className = 'dormant'
+				row.appendChild(cell);
+			}
 		}
-	}
-	setUpBoardEvents();
-	// console.log('board', board)
-	// console.log('cells', this.cells)
-};
+		setUpBoardEvents()
+		// console.log('board', board)
+		// console.log('cells', this.cells)
+}
 
 let getCell = (row, col) => {
-	// console.log('inside getCell', row, col)
-	let theCell = document.getElementById(`${col}-${row}`);
-	// console.log('theCell', theCell)
-	if (!theCell) return null;
-	theCell.xCoord = col;
-	theCell.yCoord = row;
-	return theCell;
-};
+		// console.log('inside getCell', row, col)
+		let theCell = document.getElementById(`${col}-${row}`);
+		// console.log('theCell', theCell)
+		if (!theCell) return null
+		theCell.xCoord = col;
+		theCell.yCoord = row;
+		return theCell
+}
 
-let forEachCell = iteratorFunc => {
-	// console.log('inside forEachCell')
-	for (let col = 0; col < GOL.width; col++) {
-		for (let row = 0; row < GOL.height; row++) {
-			let theCell = getCell(row, col);
-			iteratorFunc(theCell, row, col);
+let forEachCell = (iteratorFunc) => {
+		// console.log('inside forEachCell')
+		for (let col = 0; col < GOL.width; col++) {
+			for (let row = 0; row < GOL.height; row++) {
+				let theCell = getCell(row, col)
+				iteratorFunc(theCell, row, col)
+			}
 		}
-	}
-};
+}
 
 // nextState is an object literal
-let setNextState = nextBoardState => {
+let setNextState = (nextBoardState) => {
 	for (var cellId in nextBoardState) {
-		let nextCellState = nextBoardState[cellId];
-		GOL.cells[cellId] = nextCellState;
-		let cell = document.getElementById(cellId);
-		cell.className = nextCellState;
+		let nextCellState = nextBoardState[cellId]
+		GOL.cells[cellId] = nextCellState
+		let cell = document.getElementById(cellId)
+		cell.className = nextCellState
 	}
 	// for (var i = 0; i < nextState.length; i++) {
 	// 	for (var j = 0; j < nextState[i].length; j++) {
@@ -163,8 +93,8 @@ let setNextState = nextBoardState => {
 	// 		cells[`${i}-${j}`] = nextStatus
 	// 	}
 	// }
-	console.log('newCells', GOL.cells);
-};
+	console.log('newCells', GOL.cells)
+}
 
 let getNeighborhood = (cell, row, col) => {
 	let neighborIds = [];
@@ -174,83 +104,89 @@ let getNeighborhood = (cell, row, col) => {
 			if (i !== col || j !== row) {
 				if (i > -1 && j > -1) {
 					let neighborId = i + '-' + j;
-					if (neighborId) neighborIds.push(neighborId);
+					if (neighborId) neighborIds.push(neighborId)
 				}
 			}
 		}
 	}
 	return neighborIds;
-};
+}
 
-let countLiveNeighbors = neighborIds => {
+let countLiveNeighbors = (neighborIds) => {
 	// console.log('neighborIds', neighborIds)
-	let liveNeighbors = 0;
+	let liveNeighbors = 0
 	neighborIds.map(id => {
-		return document.getElementById(id);
+		return document.getElementById(id)
 	}).forEach(neighbor => {
-		if (neighbor && neighbor.className === 'alive') liveNeighbors++;
-	});
+		if (neighbor && neighbor.className === 'alive') liveNeighbors++
+	})
 	// console.log('liveNeighbors', liveNeighbors)
 	return liveNeighbors;
-};
+}
 
 let getNextState = (cell, row, col) => {
 	let neighborhood = getNeighborhood(cell, row, col);
-	// console.log('Inside getNextState. cell is', cell)
+		// console.log('Inside getNextState. cell is', cell)
 
-	// console.log('neighbors', neighborIds)
-	let liveNeighbors = countLiveNeighbors(neighborhood);
-	// console.log('cell: ', cell, 'liveNeighbors: ', liveNeighbors)
+		// console.log('neighbors', neighborIds)
+		let liveNeighbors = countLiveNeighbors(neighborhood);
+		// console.log('cell: ', cell, 'liveNeighbors: ', liveNeighbors)
 
-	if (cell.className === 'alive') {
-		if (liveNeighbors < 2 || liveNeighbors > 3) return 'dead';else return 'alive';
-	}
-	if (cell.className === 'dead') {
-		if (liveNeighbors === 3) return 'alive';else return 'dead';
-	}
-	if (cell.className === 'dormant') {
-		if (liveNeighbors === 3) return 'alive';else return 'dormant';
-	}
+		if (cell.className === 'alive') {
+			if (liveNeighbors < 2 || liveNeighbors > 3) return 'dead';
+			else return 'alive';
+		}
+		if (cell.className === 'dead') {
+			if (liveNeighbors === 3) return 'alive';
+			else return 'dead';
+		}
+		if (cell.className === 'dormant') {
+			if (liveNeighbors === 3) return 'alive';
+			else return 'dormant';
+		}
 
-	//if (cell.className === 'alive' &&)
-	// 	.map(el => {
-	// 		console.log('el', el)
-	// 		el.className === 'alive' ? 1 : 0
-	// 	})
-	// 	.reduce((sum, alive) => sum + alive, 0)
 
-};
+		//if (cell.className === 'alive' &&)
+		// 	.map(el => {
+		// 		console.log('el', el)
+		// 		el.className === 'alive' ? 1 : 0
+		// 	})
+		// 	.reduce((sum, alive) => sum + alive, 0)
+
+
+}
 
 let step = () => {
-	let nextBoardState = Object.assign({}, GOL.cells);
-	// let nextBoardState = new Array(GOL.width).fill('')
-	// 		.map(el => new Array(GOL.height).fill(''))
-	// // console.log('nextBoardState', nextBoardState)
+	let nextBoardState = Object.assign({}, GOL.cells)
+		// let nextBoardState = new Array(GOL.width).fill('')
+	 // 		.map(el => new Array(GOL.height).fill(''))
+		// // console.log('nextBoardState', nextBoardState)
 	forEachCell((cell, row, col) => {
-		nextBoardState[`${col}-${row}`] = getNextState(cell, row, col);
-	});
-	console.log('nextBoardState', nextBoardState);
+		nextBoardState[`${col}-${row}`] = getNextState(cell, row, col)
+	})
+		console.log('nextBoardState', nextBoardState)
+
 
 	setNextState(nextBoardState);
-};
+}
 
 let togglePlay = () => {
-	if (GOL.interval) {
-		clearInterval(GOL.interval);
-		GOL.interval = null;
-	} else {
-		GOL.interval = setInterval(() => step(), 150);
-	}
-};
+		if (GOL.interval) {
+			clearInterval(GOL.interval);
+			GOL.interval = null
+		} else {
+			GOL.interval = setInterval(() => step(), 150)
+		}
+}
 
-// randomize: function() {
-// 	let nextBoardState = new Array(this.width).fill('')
-// 		.map(el => new Array(this.height).fill('')
-// 			.map(cell => Math.random() <= 0.5))
-// 		console.log('nextBoardState', nextBoardState)
+	// randomize: function() {
+	// 	let nextBoardState = new Array(this.width).fill('')
+	// 		.map(el => new Array(this.height).fill('')
+	// 			.map(cell => Math.random() <= 0.5))
+	// 		console.log('nextBoardState', nextBoardState)
 
-// 		this.setNextState(nextBoardState)
-// }
+	// 		this.setNextState(nextBoardState)
+	// }
 
 createAndShowBoard();
 
@@ -368,7 +304,7 @@ createAndShowBoard();
 // 		isAlive(cells[bottom][col]) count++;
 // 		isAlive(cells[bottom][right]) count++;
 
-
+		
 // 	}
 
 // 	toggle(coords) {
@@ -400,6 +336,14 @@ createAndShowBoard();
 // 	}
 // 	return [nextState, presentState]
 // }
+
+
+
+
+
+
+
+
 
 
 // var GOL = {
@@ -538,6 +482,3 @@ createAndShowBoard();
 // // 	}
 // // }
 
-/***/ })
-/******/ ]);
-//# sourceMappingURL=bundle.js.map
