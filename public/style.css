@@ -10,13 +10,13 @@ body {
  	border-radius: 800px;
  	border-collapse: collapse;
   background-image: url(images/pond-square.gif);
-  background-size: 100%;
+  background-size: cover;
   background-repeat: none;
 }
 
 #main td{
-  width: 18px;
-  height: 18px;
+  width: 36px;
+  height: 36px;
   border: none;
 }
 
@@ -35,7 +35,8 @@ td.alive2 {
 }
 
 td.dead {
-  background-color: #ecf0f1;
+  /*background-image: url(images/fire.gif);*/
+  background-color: none;
   background-size: 100%;
   opacity: 50%;
 }
