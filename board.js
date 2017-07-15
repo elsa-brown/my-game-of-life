@@ -1,6 +1,6 @@
 let GOL = {
-	width: 20,
-	height: 20,
+	width: 60,
+	height: 60,
 	interval: null,
 	cells: {},
 	playing: false
@@ -166,7 +166,7 @@ let playGame = () => {
 		let nextBoardState = Object.assign({}, GOL.cells)
 
 		forEachCell((cell, row, col) => {
-			if (Math.floor((col + row) * Math.random()) % 7 === 0) {
+			if (Math.floor((col + row) * Math.random()) % 13 === 0) {
 				nextBoardState[`${col}-${row}`] = 'alive';
 			} else if (Math.floor((col + row) * Math.random()) % 12 === 0) {
 				nextBoardState[`${col}-${row}`] = 'alive2';
@@ -178,11 +178,11 @@ let playGame = () => {
 		console.log('nextBoardState', nextBoardState)
 
 		setNextState(nextBoardState)
-		GOL.interval = setInterval(() => step(), 300)
+		GOL.interval = setInterval(() => step(), 400)
 		GOL.playing = true;
 	}
 	else {
-		GOL.interval = setInterval(() => step(), 300)
+		GOL.interval = setInterval(() => step(), 400)
 	}
 
 };

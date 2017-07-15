@@ -15,8 +15,8 @@ body {
 }
 
 #main td{
-  width: 36px;
-  height: 36px;
+  width: 16px;
+  height: 16px;
   border: none;
 }
 
@@ -25,18 +25,19 @@ td.dormant {
 }
 
 td.alive {
-  background-image: url(images/rose-tbg-square.gif);
-  background-size: 100%;
-}
-
-td.alive2 {
   background-image: url(images/rose-bit.gif);
   background-size: 100%;
 }
 
+td.alive2 {
+  background-image: url(images/rose-tbg-square.gif);
+  background-size: 100%;
+}
+
 td.dead {
+  background-color: #ecf0f1;
   /*background-image: url(images/fire.gif);*/
-  background-color: none;
+  /*background-color: none;*/
   background-size: 100%;
   opacity: 50%;
 }
