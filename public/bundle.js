@@ -86,18 +86,18 @@ let GOL = {
 	const onCellClick = cell => {
 		let cellId = cell.id;
 		if (GOL.cells[cellId] === 'dormant') {
-			GOL.cells[cellId] = 'alive';
-			cell.className = 'alive';
+			if (cellId[cellId.length - 1] % 2 === 0) {
+				GOL.cells[cellId] = 'alive';
+				cell.className = 'alive';
+			} else {
+				GOL.cells[cellId] = 'alive';
+				cell.className = 'alive2';
+			}
 		}
-		// } else {
-		// 	GOL.cells[cellId] = 'dead';
-		// 	cell.className = 'dead';
-		// }
 	};
 
 	let board = document.getElementById('main');
 	board.addEventListener('mousedown', evt => {
-		// console.log('mousedown target', evt.target, 'id', evt.target.id)
 		let cell = evt.target;
 		onCellClick(cell);
 	});
@@ -106,7 +106,6 @@ let GOL = {
 };
 
 let createAndShowBoard = () => {
-	// const cells = new Array(this.height * this.width);
 	const main = document.getElementById('main');
 	const board = document.createElement('tbody');
 	main.appendChild(board);
@@ -202,7 +201,7 @@ let getNextState = (cell, row, col) => {
 	let liveNeighbors = countLiveNeighbors(neighborhood);
 	// console.log('cell: ', cell, 'liveNeighbors: ', liveNeighbors)
 
-	if (cell.className === 'alive') {
+	if (cell.className === 'alive' || cell.className === 'alive2') {
 		if (liveNeighbors < 2 || liveNeighbors > 3) return 'dead';else return 'alive';
 	}
 	if (cell.className === 'dead') {

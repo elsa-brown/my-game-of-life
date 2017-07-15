@@ -7,7 +7,6 @@ body {
 
 #main{
   margin: 0 auto;
- /* border: 5px solid rgba(0, 255, 0, .5);*/
  	border-radius: 800px;
  	border-collapse: collapse;
   background-image: url(images/pond-square.gif);
@@ -26,6 +25,11 @@ td.dormant {
 }
 
 td.alive {
+  background-image: url(images/rose-tbg-square.gif);
+  background-size: 100%;
+}
+
+td.alive2 {
   background-image: url(images/rose-bit.gif);
   background-size: 100%;
 }
