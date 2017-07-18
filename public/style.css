@@ -15,8 +15,8 @@ body {
 }
 
 #main td{
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   border: none;
 }
 
@@ -36,10 +36,10 @@ td.alive2 {
 
 td.dead {
   background-color: #ecf0f1;
+  /*background-color: black;*/
   /*background-image: url(images/fire.gif);*/
   /*background-color: none;*/
   background-size: 100%;
-  opacity: 50%;
 }
 
 #footer {

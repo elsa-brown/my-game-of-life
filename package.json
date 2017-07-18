@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.dist.config.js",
+    "build-css": "node-sass -w assets/style.scss -o public",
     "build-watch": "npm run build -- -w",
     "start": "nodemon index.js"
   },
@@ -24,6 +25,7 @@
     "babel-loader": "^7.1.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
+    "node-sass": "^4.5.3",
     "webpack": "^2.6.0"
   }
 }
