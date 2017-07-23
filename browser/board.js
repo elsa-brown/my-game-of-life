@@ -3,13 +3,8 @@
 // -- Constants --
 const MAIN = document.getElementById('main');
 const AUDIO = document.getElementById('audioPlayer');
-const aliveClasses = ['flower1', 
-											'flower2', 
-											'flower3', 
-											'flower4', 
-											'flower5', 
-											'flower6', 
-											'flower7'];
+const BLOOMS = require('./blooms.js');
+
 
 // -- Buttons --
 const PLAY = document.getElementById('play');
@@ -78,7 +73,7 @@ const countLiveNeighbors = (neighborIds) => {
 
 // Determine next state for a single cell, based on numbr of live neighbors
 const getNextState = (cell, row, col) => {
-	console.log('in getNextState')
+	console.log('in getNextState', cell, 'cell')
 	let neighborhood = getNeighborhood(cell, row, col);
 
 	let liveNeighbors = countLiveNeighbors(neighborhood);
@@ -94,6 +89,12 @@ const getNextState = (cell, row, col) => {
 	}
 };
 
+// Set new bloom gif for each live cell
+const getBloom = () => {
+	let idx = Math.floor(Math.random() * (3 - 1)) + 1
+	return BLOOMS[idx]
+}
+
 // Set next state for the entire board
 const setNextState = (nextBoardState) => {
 	for (let cellId in nextBoardState) {
@@ -102,6 +103,7 @@ const setNextState = (nextBoardState) => {
 			GOL.cells[cellId] = nextCellState
 			let cell = document.getElementById(cellId)
 			cell.className = nextCellState
+			if (cell.className === 'alive') cell.classList.add(getBloom())
 		}
 	}
 };

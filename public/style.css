@@ -25,13 +25,47 @@ td.dormant {
 }
 
 td.alive {
-  background-image: url(images/rose-bit.gif);
   background-size: 100%;
 }
 
-td.alive2 {
-  background-image: url(images/rose-tbg-square.gif);
-  background-size: 100%;
+td.bloom1 {
+  background-image: url(images/bloom-1.gif);
+}
+
+td.bloom2 {
+  background-image: url(images/bloom-2.gif);
+}
+
+td.bloom3 {
+  background-image: url(images/bloom-3.gif);
+}
+
+td.bloom4 {
+  background-image: url(images/bloom-4.gif);
+}
+
+td.bloom5 {
+  background-image: url(images/bloom-5.gif);
+}
+
+td.bloom6 {
+  background-image: url(images/bloom-6.gif);
+}
+
+td.bloom7 {
+  background-image: url(images/bloom-7.gif);
+}
+
+td.bloom8 {
+  background-image: url(images/bloom-8.gif);
+}
+
+td.bloom9 {
+  background-image: url(images/bloom-9.gif);
+}
+
+td.bloom10 {
+  background-image: url(images/bloom-10.gif);
 }
 
 td.dead {

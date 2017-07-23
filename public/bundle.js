@@ -63,19 +63,27 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports) {
 
+const blooms = ['bloom1', 'bloom2', 'bloom3', 'bloom4', 'bloom5', 'bloom6', 'bloom7', 'bloom8', 'bloom9', 'bloom10'];
+
+module.exports = blooms;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
 // require(SCSS FILE) -- will make into style or w/e
 
 // -- Constants --
 const MAIN = document.getElementById('main');
 const AUDIO = document.getElementById('audioPlayer');
-const aliveClasses = ['flower1', 'flower2', 'flower3', 'flower4', 'flower5', 'flower6', 'flower7'];
+const BLOOMS = __webpack_require__(0);
 
 // -- Buttons --
 const PLAY = document.getElementById('play');
@@ -143,7 +151,7 @@ const countLiveNeighbors = neighborIds => {
 
 // Determine next state for a single cell, based on numbr of live neighbors
 const getNextState = (cell, row, col) => {
-	console.log('in getNextState');
+	console.log('in getNextState', cell, 'cell');
 	let neighborhood = getNeighborhood(cell, row, col);
 
 	let liveNeighbors = countLiveNeighbors(neighborhood);
@@ -159,6 +167,12 @@ const getNextState = (cell, row, col) => {
 	}
 };
 
+// Set new bloom gif for each live cell
+const getBloom = () => {
+	let idx = Math.floor(Math.random() * (3 - 1)) + 1;
+	return BLOOMS[idx];
+};
+
 // Set next state for the entire board
 const setNextState = nextBoardState => {
 	for (let cellId in nextBoardState) {
@@ -167,6 +181,7 @@ const setNextState = nextBoardState => {
 			GOL.cells[cellId] = nextCellState;
 			let cell = document.getElementById(cellId);
 			cell.className = nextCellState;
+			if (cell.className === 'alive') cell.classList.add(getBloom());
 		}
 	}
 };
