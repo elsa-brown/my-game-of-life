@@ -70,9 +70,12 @@
 /* 0 */
 /***/ (function(module, exports) {
 
+// require(SCSS FILE) -- will make into style or w/e
+
 // -- Constants --
 const MAIN = document.getElementById('main');
 const AUDIO = document.getElementById('audioPlayer');
+const aliveClasses = ['flower1', 'flower2', 'flower3', 'flower4', 'flower5', 'flower6', 'flower7'];
 
 // -- Buttons --
 const PLAY = document.getElementById('play');

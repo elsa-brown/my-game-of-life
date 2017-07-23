@@ -3,7 +3,7 @@
 const webpack = require('webpack');
 
 module.exports = {
-  entry: './board.js',
+  entry: './browser/board.js',
   output: {
     path: __dirname,
     filename: './public/bundle.js'
