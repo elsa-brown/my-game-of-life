@@ -1,8 +1,21 @@
 body {
-	background-image: url(images/pond-crop.gif);
+  background-image: url(images/pond-crop.gif);
 	background-size: cover;
 	background-repeat: none;
 	padding: 30px;
+}
+
+#canvas {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 600px;
+  height: 600px;
+  /*border: 3px solid;*/
+  background-image: url(images/pond-square.gif);
+  background-size: cover;
 }
 
 #main{
@@ -26,6 +39,7 @@ td.dormant {
 
 td.alive {
   background-size: 100%;
+  background-image: url(images/bloom-1.gif);
 }
 
 td.bloom1 {
@@ -76,7 +90,7 @@ td.dead {
   background-size: 100%;
 }
 
-#footer {
+/*#footer {
 	height: 30px;
 	width: 100%;
 	bottom: 0;
@@ -84,7 +98,7 @@ td.dead {
 	position: absolute;
 	display flex;
 	z-index: 10;
-}
+}*/
 
 .clearfix:before,
 .clearfix:after {

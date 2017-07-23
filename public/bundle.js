@@ -63,46 +63,204 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-const blooms = ['bloom1', 'bloom2', 'bloom3', 'bloom4', 'bloom5', 'bloom6', 'bloom7', 'bloom8', 'bloom9', 'bloom10'];
+"use strict";
+// -- DOM Elements --
+const main = document.getElementById('main');
+/* unused harmony export main */
 
-module.exports = blooms;
+const canvas = document.getElementById('canvas');
+/* harmony export (immutable) */ __webpack_exports__["e"] = canvas;
 
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+const audio = document.getElementById('audioPlayer');
+/* harmony export (immutable) */ __webpack_exports__["g"] = audio;
 
-// require(SCSS FILE) -- will make into style or w/e
-
-// -- Constants --
-const MAIN = document.getElementById('main');
-const AUDIO = document.getElementById('audioPlayer');
-const BLOOMS = __webpack_require__(0);
 
 // -- Buttons --
-const PLAY = document.getElementById('play');
-const PAUSE = document.getElementById('pause');
-const CLEAR = document.getElementById('clear');
-const SOUND = document.getElementById('sound');
+const playButton = document.getElementById('play');
+/* harmony export (immutable) */ __webpack_exports__["a"] = playButton;
+
+const pauseButton = document.getElementById('pause');
+/* harmony export (immutable) */ __webpack_exports__["b"] = pauseButton;
+
+const clearButton = document.getElementById('clear');
+/* harmony export (immutable) */ __webpack_exports__["c"] = clearButton;
+
+const soundButton = document.getElementById('sound');
+/* harmony export (immutable) */ __webpack_exports__["d"] = soundButton;
+
+
+// -- Cell Background Images --
+// export const blooms = ['bloom1', 'bloom2', 'bloom3'];
 
 // -- Board Properties --
-const GOL = {
+const boardState = {
 	width: 30,
 	height: 30,
 	interval: null,
 	cells: {},
 	playing: false
+};
+/* harmony export (immutable) */ __webpack_exports__["f"] = boardState;
 
-	// -- Global Audio -- 
-};let soundOn = true;
 
-// -- Game Events --
+/***/ }),
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__game__ = __webpack_require__(3);
+
+
+
+// Start game play
+const playGame = () => {
+	if (!__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].playing) {
+		let nextBoardState = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].cells);
+
+		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__game__["a" /* forEachCell */])((cell, row, col) => {
+			console.log('in forEach');
+			if (Math.floor((row + col) * Math.random()) % 5 === 0) {
+				nextBoardState[`${col}-${row}`] = 'alive';
+			}
+		});
+
+		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__game__["b" /* setNextState */])(nextBoardState);
+
+		__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].playing = true;
+	}
+
+	__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].interval = setInterval(__WEBPACK_IMPORTED_MODULE_1__game__["c" /* step */], 1000);
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = playGame;
+
+
+// Pause game
+const pauseGame = () => {
+	clearInterval(__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].interval);
+	__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].interval = null;
+};
+/* harmony export (immutable) */ __webpack_exports__["b"] = pauseGame;
+
+
+// Clear board
+const clearBoard = () => {
+	let nextBoardState = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].cells);
+
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__game__["a" /* forEachCell */])((cell, row, col) => {
+		nextBoardState[`${col}-${row}`] = 'dormant';
+	});
+
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__game__["b" /* setNextState */])(nextBoardState);
+	__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].interval = null;
+	__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].playing = false;
+};
+/* harmony export (immutable) */ __webpack_exports__["c"] = clearBoard;
+
+
+// Toggle Audio
+let soundOn = true;
+const toggleSound = () => {
+	if (soundOn) {
+		__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* audio */].pause();
+		__WEBPACK_IMPORTED_MODULE_0__constants__["d" /* soundButton */].innerHTML = 'Sound On';
+		soundOn = false;
+	} else {
+		__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* audio */].play();
+		__WEBPACK_IMPORTED_MODULE_0__constants__["d" /* soundButton */].innerHTML = 'Sound Off';
+		soundOn = true;
+	}
+};
+/* harmony export (immutable) */ __webpack_exports__["d"] = toggleSound;
+
+
+/***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buttonEvents_js__ = __webpack_require__(1);
+
+
+
+// -- Buttons --
+const createButtonEvents = () => {
+	console.log('in createbuttons');
+	__WEBPACK_IMPORTED_MODULE_0__constants__["a" /* playButton */].addEventListener('click', () => __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__buttonEvents_js__["a" /* playGame */])());
+
+	__WEBPACK_IMPORTED_MODULE_0__constants__["b" /* pauseButton */].addEventListener('click', () => __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__buttonEvents_js__["b" /* pauseGame */])());
+
+	__WEBPACK_IMPORTED_MODULE_0__constants__["c" /* clearButton */].addEventListener('click', () => __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__buttonEvents_js__["c" /* clearBoard */])());
+
+	__WEBPACK_IMPORTED_MODULE_0__constants__["d" /* soundButton */].innerHTML = 'Sound Off';
+	__WEBPACK_IMPORTED_MODULE_0__constants__["d" /* soundButton */].addEventListener('click', () => __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__buttonEvents_js__["d" /* toggleSound */])());
+};
+
+createButtonEvents();
+
+// -- Initital Board Set-Up --
+const makeCircle = () => {
+	console.log('inside circle');
+	const ctx = __WEBPACK_IMPORTED_MODULE_0__constants__["e" /* canvas */].getContext('2d');
+	console.log('ctx', ctx);
+	const centerX = __WEBPACK_IMPORTED_MODULE_0__constants__["e" /* canvas */].width / 2;
+	const centerY = __WEBPACK_IMPORTED_MODULE_0__constants__["e" /* canvas */].height / 2;
+	const radius = 200;
+
+	ctx.beginPath();
+	ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+	// ctx.fillStyle = 'green';
+	// ctx.fill();
+	// ctx.lineWidth = 5;
+	// ctx.strokeStyle = '#003300';
+	ctx.stroke();
+};
+
+makeCircle();
+
+// const createAndShowBoard = () => {
+// 	// const board = document.createElement('tbody');
+// 	// main.appendChild(canvas);
+
+// 	// for (let i = 0; i < boardState.width; i++) {
+// 	// 	let row = document.createElement('tr');
+// 	// 	board.appendChild(row);
+
+// 	// 	for (let j = 0; j < boardState.height; j++) {
+// 	// 		boardState.cells[`${i}-${j}`] = 'dormant'
+// 	// 		let cell = document.createElement('td');
+// 	// 		cell.id = `${i}-${j}`
+// 	// 		cell.className = 'dormant'
+// 	// 		row.appendChild(cell);
+// 	// 	}
+// 	// }
+// 	createButtonEvents()
+// }
+
+//createAndShowBoard();
+
+// set each cell to a volume level audio.volume=number btw 0.0 and 1.0
+// make the volume a number relative to the person's chosen number{?}
+// i wonder if there could be spatialization of the sound.... 
+// each cell is a PannerNode that is turned on or off depending on the cell status
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants__ = __webpack_require__(0);
+
+
 // Get individual cell from document
 const getCell = (row, col) => {
 	let theCell = document.getElementById(`${col}-${row}`);
@@ -114,13 +272,15 @@ const getCell = (row, col) => {
 
 // Execute iterator function on each cell
 const forEachCell = iteratorFunc => {
-	for (let col = 0; col < GOL.width; col++) {
-		for (let row = 0; row < GOL.height; row++) {
+	for (let col = 0; col < __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].width; col++) {
+		for (let row = 0; row < __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].height; row++) {
 			let theCell = getCell(row, col);
 			iteratorFunc(theCell, row, col);
 		}
 	}
 };
+/* harmony export (immutable) */ __webpack_exports__["a"] = forEachCell;
+
 
 // Get neighboring cells for a single cell
 const getNeighborhood = (cell, row, col) => {
@@ -168,124 +328,37 @@ const getNextState = (cell, row, col) => {
 };
 
 // Set new bloom gif for each live cell
-const getBloom = () => {
-	let idx = Math.floor(Math.random() * (3 - 1)) + 1;
-	return BLOOMS[idx];
-};
+// const getBloom = () => {
+// 	let idx = Math.floor(Math.random() * (3 - 1)) + 1
+// 	return blooms[idx]
+// }
 
 // Set next state for the entire board
 const setNextState = nextBoardState => {
 	for (let cellId in nextBoardState) {
 		if (nextBoardState.hasOwnProperty(cellId)) {
 			let nextCellState = nextBoardState[cellId];
-			GOL.cells[cellId] = nextCellState;
+			__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].cells[cellId] = nextCellState;
 			let cell = document.getElementById(cellId);
 			cell.className = nextCellState;
-			if (cell.className === 'alive') cell.classList.add(getBloom());
+			// if (cell.className === 'alive') cell.classList.add(getBloom())
 		}
 	}
 };
+/* harmony export (immutable) */ __webpack_exports__["b"] = setNextState;
+
 
 // Step is a single iteration of the game
 const step = () => {
-	let nextBoardState = Object.assign({}, GOL.cells);
+	let nextBoardState = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].cells);
 	forEachCell((cell, row, col) => {
 		nextBoardState[`${col}-${row}`] = getNextState(cell, row, col);
 	});
 
 	setNextState(nextBoardState);
 };
+/* harmony export (immutable) */ __webpack_exports__["c"] = step;
 
-// Start game play 
-const playGame = () => {
-	if (!GOL.playing) {
-		let nextBoardState = Object.assign({}, GOL.cells);
-
-		forEachCell((cell, row, col) => {
-			console.log('in forEach');
-			if (Math.floor((row + col) * Math.random()) % 5 === 0) {
-				nextBoardState[`${col}-${row}`] = 'alive';
-			}
-		});
-
-		setNextState(nextBoardState);
-
-		GOL.playing = true;
-	}
-
-	GOL.interval = setInterval(step, 1000);
-};
-
-// Pause game
-const pauseGame = () => {
-	clearInterval(GOL.interval);
-	GOL.interval = null;
-};
-
-// Clear board
-const clearBoard = () => {
-	let nextBoardState = Object.assign({}, GOL.cells);
-
-	forEachCell((cell, row, col) => {
-		nextBoardState[`${col}-${row}`] = 'dormant';
-	});
-
-	setNextState(nextBoardState);
-	GOL.interval = null;
-	GOL.playing = false;
-};
-
-// -- Game audio -- 
-const toggleSound = () => {
-	if (soundOn) {
-		AUDIO.pause();
-		SOUND.innerHTML = 'Sound On';
-		soundOn = false;
-	} else {
-		AUDIO.play();
-		SOUND.innerHTML = 'Sound Off';
-		soundOn = true;
-	}
-};
-
-// -- Initial Board Set-Up --
-const setUpBoardEvents = () => {
-
-	PLAY.addEventListener('click', () => playGame());
-
-	PAUSE.addEventListener('click', () => pauseGame());
-
-	CLEAR.addEventListener('click', () => clearBoard());
-
-	SOUND.innerHTML = 'Sound Off';
-	SOUND.addEventListener('click', () => toggleSound());
-};
-
-const createAndShowBoard = () => {
-	const board = document.createElement('tbody');
-	MAIN.appendChild(board);
-
-	for (let i = 0; i < GOL.width; i++) {
-		let row = document.createElement('tr');
-		board.appendChild(row);
-
-		for (let j = 0; j < GOL.height; j++) {
-			GOL.cells[`${i}-${j}`] = 'dormant';
-			let cell = document.createElement('td');
-			cell.id = `${i}-${j}`;
-			cell.className = 'dormant';
-			row.appendChild(cell);
-		}
-	}
-	setUpBoardEvents();
-};
-
-createAndShowBoard();
-
-// set each cell to a volume level audio.volume=number btw 0.0 and 1.0
-// make the volume a number relative to the person's chosen number{?}
-// i wonder if there could be spatialization of the sound.... 
-// each cell is a PannerNode that is turned on or off depending on the cell status
 
 /***/ })
 /******/ ]);
