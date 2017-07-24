@@ -16,26 +16,26 @@ const createButtonEvents = () => {
 
 
 // -- Initital Board Set-Up --
-// const createAndShowBoard = () => {
-// 	const board = document.createElement('tbody');
-// 	main.appendChild(board);
+const createAndShowBoard = () => {
+	const board = document.createElement('tbody');
+	main.appendChild(board);
 
-// 	for (let i = 0; i < boardState.width; i++) {
-// 		let row = document.createElement('tr');
-// 		board.appendChild(row);
+	for (let i = 0; i < boardState.width; i++) {
+		let row = document.createElement('tr');
+		board.appendChild(row);
 
-// 		for (let j = 0; j < boardState.height; j++) {
-// 			boardState.cells[`${i}-${j}`] = 'dormant'
-// 			let cell = document.createElement('td');
-// 			cell.id = `${i}-${j}`
-// 			cell.className = 'dormant'
-// 			row.appendChild(cell);
-// 		}
-// 	}
-// 	createButtonEvents()
-// }
+		for (let j = 0; j < boardState.height; j++) {
+			boardState.cells[`${i}-${j}`] = 'dormant'
+			let cell = document.createElement('td');
+			cell.id = `${i}-${j}`
+			cell.className = 'dormant'
+			row.appendChild(cell);
+		}
+	}
+	createButtonEvents()
+}
 
-// createAndShowBoard();
+createAndShowBoard();
 
 // set each cell to a volume level audio.volume=number btw 0.0 and 1.0
 // make the volume a number relative to the person's chosen number{?}

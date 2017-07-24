@@ -48,7 +48,7 @@ const countLiveNeighbors = (neighborIds) => {
 
 // Determine next state for a single cell, based on numbr of live neighbors
 const getNextState = (cell, row, col) => {
-	console.log('in getNextState', cell, 'cell')
+	// console.log('in getNextState', cell, 'cell')
 	let neighborhood = getNeighborhood(cell, row, col);
 
 	let liveNeighbors = countLiveNeighbors(neighborhood);
@@ -65,10 +65,11 @@ const getNextState = (cell, row, col) => {
 };
 
 // Set new bloom gif for each live cell
-// const getBloom = () => {
-// 	let idx = Math.floor(Math.random() * (3 - 1)) + 1
-// 	return blooms[idx]
-// }
+const getBloom = () => {
+	let idx = Math.floor(Math.random() * (4 - 1)) + 1
+	// console.log('blooms is ', blooms, 'idx is ', idx)
+	return blooms[idx]
+}
 
 // Set next state for the entire board
 export const setNextState = (nextBoardState) => {
@@ -78,7 +79,7 @@ export const setNextState = (nextBoardState) => {
 			boardState.cells[cellId] = nextCellState
 			let cell = document.getElementById(cellId)
 			cell.className = nextCellState
-			// if (cell.className === 'alive') cell.classList.add(getBloom())
+			if (cell.className === 'alive') cell.classList.add(getBloom())
 		}
 	}
 };

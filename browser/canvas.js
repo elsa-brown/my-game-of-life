@@ -16,33 +16,8 @@ const createButtonEvents = () => {
 createButtonEvents();
 
 // -- Initital Board Set-Up --
-// const makeCircle = () => {
-// 	console.log('inside circle')
-// 	const dimension = canvas.width / 2;
-
-// 	const fillImg = new Image();
-// 	fillImg.src = '../images/pond-square.gif';
-
-// 	fillImg.onload = () => {
-// 		circleCtx.save();
-// 		circleCtx.beginPath();
-// 		circleCtx.arc(dimension, dimension, dimension, 0, 2 * Math.PI)
-// 		circleCtx.closePath();
-// 		circleCtx.clip();
-// 		ctx.drawImage(fillImg, 0, 0);
-// 		ctx.beginPath();
-// 		ctx.arc(size, size, size, 0, 2 * Math.PI);
-// 	}
-
-
-// 	// ctx.fillStyle = 'green';
-// 	// ctx.fill();
-// }
-
-// makeCircle();
-
-
 // const createAndShowBoard = () => {
+// 	console.log('inside create and show')
 // 	// const board = document.createElement('tbody');
 // 	// main.appendChild(canvas);
 
@@ -61,7 +36,7 @@ createButtonEvents();
 // 	createButtonEvents()
 // }
 
-//createAndShowBoard();
+// createAndShowBoard();
 
 // set each cell to a volume level audio.volume=number btw 0.0 and 1.0
 // make the volume a number relative to the person's chosen number{?}

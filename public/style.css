@@ -5,29 +5,37 @@ body {
 	padding: 30px;
 }
 
-#canvas {
+/*#canvas {
   padding-left: 0;
   padding-right: 0;
   margin-left: auto;
   margin-right: auto;
   display: block;
-}
+  position: relative;
+  border: 2px solid red;
+  z-index: 4;
+}*/
 
 #pond {
   margin: 0 auto;
   width: 600px;
   height: 600px;
   display: block;
+  position: absolute;
   border-radius: 100%;
+  z-index: -10;
 }
 
 #main{
   margin: 0 auto;
- 	border-radius: 800px;
- 	border-collapse: collapse;
+  position: relative;
+  border-collapse: collapse;
+  border-radius: 800px;
   background-image: url(images/pond-square.gif);
   background-size: cover;
   background-repeat: none;
+  backface-visibility: none;
+  z-index: 4;
 }
 
 #main td{

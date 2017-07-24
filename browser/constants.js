@@ -10,7 +10,7 @@ export const clearButton = document.getElementById('clear');
 export const soundButton = document.getElementById('sound');
 
 // -- Cell Background Images --
-// export const blooms = ['bloom1', 'bloom2', 'bloom3'];
+export const blooms = ['bloom1', 'bloom2', 'bloom3'];
 
 // -- Board Properties --
 export const boardState = {

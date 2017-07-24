@@ -7,7 +7,7 @@ export const playGame = () => {
 		let nextBoardState = Object.assign({}, boardState.cells)
 
 		forEachCell((cell, row, col) => {
-			console.log('in forEach')
+			// console.log('in forEach')
 			if (Math.floor((row + col) * Math.random()) % 5 === 0) {
 				nextBoardState[`${col}-${row}`] = 'alive'
 			}
@@ -19,6 +19,7 @@ export const playGame = () => {
 	}
 
 	boardState.interval = setInterval(step, 1000)
+	console.log('boardState interval ', boardState.interval)
 
 };
 
