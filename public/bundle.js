@@ -76,10 +76,10 @@ const main = document.getElementById('main');
 /* unused harmony export main */
 
 const canvas = document.getElementById('canvas');
-/* harmony export (immutable) */ __webpack_exports__["e"] = canvas;
+/* unused harmony export canvas */
 
 const audio = document.getElementById('audioPlayer');
-/* harmony export (immutable) */ __webpack_exports__["g"] = audio;
+/* harmony export (immutable) */ __webpack_exports__["f"] = audio;
 
 
 // -- Buttons --
@@ -107,7 +107,7 @@ const boardState = {
 	cells: {},
 	playing: false
 };
-/* harmony export (immutable) */ __webpack_exports__["f"] = boardState;
+/* harmony export (immutable) */ __webpack_exports__["e"] = boardState;
 
 
 /***/ }),
@@ -122,8 +122,8 @@ const boardState = {
 
 // Start game play
 const playGame = () => {
-	if (!__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].playing) {
-		let nextBoardState = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].cells);
+	if (!__WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].playing) {
+		let nextBoardState = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].cells);
 
 		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__game__["a" /* forEachCell */])((cell, row, col) => {
 			console.log('in forEach');
@@ -134,33 +134,33 @@ const playGame = () => {
 
 		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__game__["b" /* setNextState */])(nextBoardState);
 
-		__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].playing = true;
+		__WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].playing = true;
 	}
 
-	__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].interval = setInterval(__WEBPACK_IMPORTED_MODULE_1__game__["c" /* step */], 1000);
+	__WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].interval = setInterval(__WEBPACK_IMPORTED_MODULE_1__game__["c" /* step */], 1000);
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = playGame;
 
 
 // Pause game
 const pauseGame = () => {
-	clearInterval(__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].interval);
-	__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].interval = null;
+	clearInterval(__WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].interval);
+	__WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].interval = null;
 };
 /* harmony export (immutable) */ __webpack_exports__["b"] = pauseGame;
 
 
 // Clear board
 const clearBoard = () => {
-	let nextBoardState = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].cells);
+	let nextBoardState = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].cells);
 
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__game__["a" /* forEachCell */])((cell, row, col) => {
 		nextBoardState[`${col}-${row}`] = 'dormant';
 	});
 
 	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__game__["b" /* setNextState */])(nextBoardState);
-	__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].interval = null;
-	__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].playing = false;
+	__WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].interval = null;
+	__WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].playing = false;
 };
 /* harmony export (immutable) */ __webpack_exports__["c"] = clearBoard;
 
@@ -169,11 +169,11 @@ const clearBoard = () => {
 let soundOn = true;
 const toggleSound = () => {
 	if (soundOn) {
-		__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* audio */].pause();
+		__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* audio */].pause();
 		__WEBPACK_IMPORTED_MODULE_0__constants__["d" /* soundButton */].innerHTML = 'Sound On';
 		soundOn = false;
 	} else {
-		__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* audio */].play();
+		__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* audio */].play();
 		__WEBPACK_IMPORTED_MODULE_0__constants__["d" /* soundButton */].innerHTML = 'Sound Off';
 		soundOn = true;
 	}
@@ -194,7 +194,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 // -- Buttons --
 const createButtonEvents = () => {
-	console.log('in createbuttons');
 	__WEBPACK_IMPORTED_MODULE_0__constants__["a" /* playButton */].addEventListener('click', () => __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__buttonEvents_js__["a" /* playGame */])());
 
 	__WEBPACK_IMPORTED_MODULE_0__constants__["b" /* pauseButton */].addEventListener('click', () => __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__buttonEvents_js__["b" /* pauseGame */])());
@@ -208,24 +207,31 @@ const createButtonEvents = () => {
 createButtonEvents();
 
 // -- Initital Board Set-Up --
-const makeCircle = () => {
-	console.log('inside circle');
-	const ctx = __WEBPACK_IMPORTED_MODULE_0__constants__["e" /* canvas */].getContext('2d');
-	console.log('ctx', ctx);
-	const centerX = __WEBPACK_IMPORTED_MODULE_0__constants__["e" /* canvas */].width / 2;
-	const centerY = __WEBPACK_IMPORTED_MODULE_0__constants__["e" /* canvas */].height / 2;
-	const radius = 200;
+// const makeCircle = () => {
+// 	console.log('inside circle')
+// 	const dimension = canvas.width / 2;
 
-	ctx.beginPath();
-	ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-	// ctx.fillStyle = 'green';
-	// ctx.fill();
-	// ctx.lineWidth = 5;
-	// ctx.strokeStyle = '#003300';
-	ctx.stroke();
-};
+// 	const fillImg = new Image();
+// 	fillImg.src = '../images/pond-square.gif';
 
-makeCircle();
+// 	fillImg.onload = () => {
+// 		circleCtx.save();
+// 		circleCtx.beginPath();
+// 		circleCtx.arc(dimension, dimension, dimension, 0, 2 * Math.PI)
+// 		circleCtx.closePath();
+// 		circleCtx.clip();
+// 		ctx.drawImage(fillImg, 0, 0);
+// 		ctx.beginPath();
+// 		ctx.arc(size, size, size, 0, 2 * Math.PI);
+// 	}
+
+
+// 	// ctx.fillStyle = 'green';
+// 	// ctx.fill();
+// }
+
+// makeCircle();
+
 
 // const createAndShowBoard = () => {
 // 	// const board = document.createElement('tbody');
@@ -272,8 +278,8 @@ const getCell = (row, col) => {
 
 // Execute iterator function on each cell
 const forEachCell = iteratorFunc => {
-	for (let col = 0; col < __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].width; col++) {
-		for (let row = 0; row < __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].height; row++) {
+	for (let col = 0; col < __WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].width; col++) {
+		for (let row = 0; row < __WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].height; row++) {
 			let theCell = getCell(row, col);
 			iteratorFunc(theCell, row, col);
 		}
@@ -338,7 +344,7 @@ const setNextState = nextBoardState => {
 	for (let cellId in nextBoardState) {
 		if (nextBoardState.hasOwnProperty(cellId)) {
 			let nextCellState = nextBoardState[cellId];
-			__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].cells[cellId] = nextCellState;
+			__WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].cells[cellId] = nextCellState;
 			let cell = document.getElementById(cellId);
 			cell.className = nextCellState;
 			// if (cell.className === 'alive') cell.classList.add(getBloom())
@@ -350,7 +356,7 @@ const setNextState = nextBoardState => {
 
 // Step is a single iteration of the game
 const step = () => {
-	let nextBoardState = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].cells);
+	let nextBoardState = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].cells);
 	forEachCell((cell, row, col) => {
 		nextBoardState[`${col}-${row}`] = getNextState(cell, row, col);
 	});

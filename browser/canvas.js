@@ -3,7 +3,6 @@ import { playGame, pauseGame, clearBoard, toggleSound } from './buttonEvents.js'
 
 // -- Buttons --
 const createButtonEvents = () => {
-	console.log('in createbuttons')
 	playButton.addEventListener('click', () => playGame());
 
 	pauseButton.addEventListener('click', () => pauseGame());
@@ -17,24 +16,30 @@ const createButtonEvents = () => {
 createButtonEvents();
 
 // -- Initital Board Set-Up --
-const makeCircle = () => {
-	console.log('inside circle')
-	const ctx = canvas.getContext('2d');
-	console.log('ctx', ctx)
-	const centerX = canvas.width / 2;
-	const centerY = canvas.height / 2;
-	const radius = 200;
+// const makeCircle = () => {
+// 	console.log('inside circle')
+// 	const dimension = canvas.width / 2;
 
-	ctx.beginPath();
-	ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-	// ctx.fillStyle = 'green';
-	// ctx.fill();
-	// ctx.lineWidth = 5;
-	// ctx.strokeStyle = '#003300';
-	ctx.stroke();
-}
+// 	const fillImg = new Image();
+// 	fillImg.src = '../images/pond-square.gif';
 
-makeCircle();
+// 	fillImg.onload = () => {
+// 		circleCtx.save();
+// 		circleCtx.beginPath();
+// 		circleCtx.arc(dimension, dimension, dimension, 0, 2 * Math.PI)
+// 		circleCtx.closePath();
+// 		circleCtx.clip();
+// 		ctx.drawImage(fillImg, 0, 0);
+// 		ctx.beginPath();
+// 		ctx.arc(size, size, size, 0, 2 * Math.PI);
+// 	}
+
+
+// 	// ctx.fillStyle = 'green';
+// 	// ctx.fill();
+// }
+
+// makeCircle();
 
 
 // const createAndShowBoard = () => {
