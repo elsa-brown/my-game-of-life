@@ -66,7 +66,7 @@ const getNextState = (cell, row, col) => {
 
 // Set new bloom gif for each live cell
 const getBloom = () => {
-	let idx = Math.floor(Math.random() * (4 - 1)) + 1
+	let idx = Math.floor(Math.random() * (9 - 1)) + 1
 	// console.log('blooms is ', blooms, 'idx is ', idx)
 	return blooms[idx]
 }

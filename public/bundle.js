@@ -97,7 +97,7 @@ const soundButton = document.getElementById('sound');
 
 
 // -- Cell Background Images --
-const blooms = ['bloom1', 'bloom2', 'bloom3'];
+const blooms = ['bloom1', 'bloom2', 'bloom3', 'bloom4', 'bloom5', 'bloom6', 'bloom7', 'bloom8', 'bloom9'];
 /* harmony export (immutable) */ __webpack_exports__["h"] = blooms;
 
 
@@ -311,7 +311,7 @@ const getNextState = (cell, row, col) => {
 
 // Set new bloom gif for each live cell
 const getBloom = () => {
-	let idx = Math.floor(Math.random() * (4 - 1)) + 1;
+	let idx = Math.floor(Math.random() * (9 - 1)) + 1;
 	// console.log('blooms is ', blooms, 'idx is ', idx)
 	return __WEBPACK_IMPORTED_MODULE_0__constants__["h" /* blooms */][idx];
 };
