@@ -1,17 +1,41 @@
 body {
-	background-image: url(images/pond-crop.gif);
+  background-image: url(images/pond-crop.gif);
 	background-size: cover;
 	background-repeat: none;
 	padding: 30px;
 }
 
+/*#canvas {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  position: relative;
+  border: 2px solid red;
+  z-index: 4;
+}*/
+
+#pond {
+  margin: 0 auto;
+  width: 600px;
+  height: 600px;
+  display: block;
+  position: absolute;
+  border-radius: 100%;
+  z-index: -10;
+}
+
 #main{
   margin: 0 auto;
- 	border-radius: 800px;
- 	border-collapse: collapse;
+  position: relative;
+  border-collapse: collapse;
+  border-radius: 800px;
   background-image: url(images/pond-square.gif);
   background-size: cover;
   background-repeat: none;
+  backface-visibility: none;
+  z-index: 4;
 }
 
 #main td{
@@ -26,6 +50,7 @@ td.dormant {
 
 td.alive {
   background-size: 100%;
+  background-image: url(images/bloom-1.gif);
 }
 
 td.bloom1 {
@@ -76,7 +101,7 @@ td.dead {
   background-size: 100%;
 }
 
-#footer {
+/*#footer {
 	height: 30px;
 	width: 100%;
 	bottom: 0;
@@ -84,7 +109,7 @@ td.dead {
 	position: absolute;
 	display flex;
 	z-index: 10;
-}
+}*/
 
 .clearfix:before,
 .clearfix:after {
