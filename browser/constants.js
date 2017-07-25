@@ -10,12 +10,12 @@ export const clearButton = document.getElementById('clear');
 export const soundButton = document.getElementById('sound');
 
 // -- Cell Background Images --
-export const blooms = ['bloom1', 'bloom2', 'bloom3', 'bloom4', 'bloom5', 'bloom6', 'bloom7', 'bloom8', 'bloom9'];
+export const blooms = ['bloom1', 'bloom2', 'bloom3', 'bloom4', 'bloom5'];
 
 // -- Board Properties --
 export const boardState = {
-	width: 30,
-	height: 30,
+	width: 20,
+	height: 20,
 	interval: null,
 	cells: {},
 	playing: false,

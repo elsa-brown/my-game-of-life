@@ -5,17 +5,6 @@ body {
 	padding: 30px;
 }
 
-/*#canvas {
-  padding-left: 0;
-  padding-right: 0;
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  position: relative;
-  border: 2px solid red;
-  z-index: 4;
-}*/
-
 #pond {
   margin: 0 auto;
   width: 600px;
@@ -34,13 +23,11 @@ body {
   background-image: url(images/pond-square.gif);
   background-size: cover;
   background-repeat: none;
-  backface-visibility: none;
-  z-index: 4;
 }
 
 #main td{
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   border: none;
 }
 
@@ -49,67 +36,75 @@ td.dormant {
 }
 
 td.alive {
+  /*background-image: url(images/bloom-2100ms.gif);*/
   background-size: 100%;
-  background-image: url(images/bloom-1.gif);
 }
 
 td.bloom1 {
-  background-image: url(images/bloom-1.gif);
+  background-image: url(images/bloom-2100ms.gif);
 }
 
 td.bloom2 {
   background-image: url(images/bloom-2.gif);
+  -webkit-animation-name: fadebloom;
+  -webkit-animation-duration: 2.1s;
 }
 
 td.bloom3 {
   background-image: url(images/bloom-3.gif);
+  -webkit-animation-name: fadebloom;
+  -webkit-animation-duration: 2.1s;
 }
 
 td.bloom4 {
   background-image: url(images/bloom-4.gif);
+  -webkit-animation-name: fadebloom;
+  -webkit-animation-duration: 2.1s;
 }
 
 td.bloom5 {
   background-image: url(images/bloom-5.gif);
 }
 
-td.bloom6 {
-  background-image: url(images/bloom-6.gif);
-}
-
-td.bloom7 {
-  background-image: url(images/bloom-7.gif);
-}
-
-td.bloom8 {
-  background-image: url(images/bloom-8.gif);
-}
-
-td.bloom9 {
-  background-image: url(images/bloom-9.gif);
-}
-
-td.bloom10 {
-  background-image: url(images/bloom-10.gif);
-}
-
 td.dead {
-  background-color: #ecf0f1;
-  /*background-color: black;*/
-  /*background-image: url(images/fire.gif);*/
-  /*background-color: none;*/
+  background-image: url(images/fire-800ms.gif);
   background-size: 100%;
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 2.1s;
 }
 
-/*#footer {
-	height: 30px;
-	width: 100%;
-	bottom: 0;
-	left: 0;
-	position: absolute;
-	display flex;
-	z-index: 10;
-}*/
+@-webkit-keyframes fade {
+  from {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes fadebloom {
+  from {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.5
+  }
+  50% {
+    opacity: 1
+  }
+  75% {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 0;
+  }
+}
 
 .clearfix:before,
 .clearfix:after {

@@ -18,7 +18,7 @@ export const playGame = () => {
 		boardState.playing = true;
 	}
 
-	boardState.interval = setInterval(step, 1000)
+	boardState.interval = setInterval(step, 2100)
 	console.log('boardState interval ', boardState.interval)
 
 };

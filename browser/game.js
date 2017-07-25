@@ -41,7 +41,9 @@ const countLiveNeighbors = (neighborIds) => {
 	neighborIds.map(id => {
 		return document.getElementById(id)
 	}).forEach(neighbor => {
-		if (neighbor && neighbor.className === 'alive') liveNeighbors++
+		if (neighbor && neighbor.classList.contains('alive')) {
+			liveNeighbors++
+		}
 	})
 	return liveNeighbors;
 };
@@ -53,20 +55,22 @@ const getNextState = (cell, row, col) => {
 
 	let liveNeighbors = countLiveNeighbors(neighborhood);
 
-	let status = cell.className;
+	let status = cell.classList;
+	console.log('status ', status)
+	// if (status === 'died') return status
 
-	if (status === 'alive') {
+	if (status.contains('alive')) {
 		if (liveNeighbors < 2 || liveNeighbors > 3) return 'dead';
-		return status;
+		else return status
 	} else {
 		if (liveNeighbors === 3) return 'alive';
-		return status;
+		else return 'dormant'
 	}
 };
 
 // Set new bloom gif for each live cell
 const getBloom = () => {
-	let idx = Math.floor(Math.random() * (9 - 1)) + 1
+	let idx = Math.floor(Math.random() * 5)
 	// console.log('blooms is ', blooms, 'idx is ', idx)
 	return blooms[idx]
 }
@@ -79,7 +83,7 @@ export const setNextState = (nextBoardState) => {
 			boardState.cells[cellId] = nextCellState
 			let cell = document.getElementById(cellId)
 			cell.className = nextCellState
-			if (cell.className === 'alive') cell.classList.add(getBloom())
+			if (cell.className === 'alive') cell.classList.add(getBloom());
 		}
 	}
 };

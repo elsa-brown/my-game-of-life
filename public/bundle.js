@@ -97,14 +97,14 @@ const soundButton = document.getElementById('sound');
 
 
 // -- Cell Background Images --
-const blooms = ['bloom1', 'bloom2', 'bloom3', 'bloom4', 'bloom5', 'bloom6', 'bloom7', 'bloom8', 'bloom9'];
+const blooms = ['bloom1', 'bloom2', 'bloom3', 'bloom4', 'bloom5'];
 /* harmony export (immutable) */ __webpack_exports__["h"] = blooms;
 
 
 // -- Board Properties --
 const boardState = {
-	width: 30,
-	height: 30,
+	width: 20,
+	height: 20,
 	interval: null,
 	cells: {},
 	playing: false
@@ -139,7 +139,7 @@ const playGame = () => {
 		__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].playing = true;
 	}
 
-	__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].interval = setInterval(__WEBPACK_IMPORTED_MODULE_1__game__["c" /* step */], 1000);
+	__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].interval = setInterval(__WEBPACK_IMPORTED_MODULE_1__game__["c" /* step */], 2100);
 	console.log('boardState interval ', __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].interval);
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = playGame;
@@ -286,7 +286,9 @@ const countLiveNeighbors = neighborIds => {
 	neighborIds.map(id => {
 		return document.getElementById(id);
 	}).forEach(neighbor => {
-		if (neighbor && neighbor.className === 'alive') liveNeighbors++;
+		if (neighbor && neighbor.classList.contains('alive')) {
+			liveNeighbors++;
+		}
 	});
 	return liveNeighbors;
 };
@@ -298,20 +300,20 @@ const getNextState = (cell, row, col) => {
 
 	let liveNeighbors = countLiveNeighbors(neighborhood);
 
-	let status = cell.className;
+	let status = cell.classList;
+	console.log('status ', status);
+	// if (status === 'died') return status
 
-	if (status === 'alive') {
-		if (liveNeighbors < 2 || liveNeighbors > 3) return 'dead';
-		return status;
+	if (status.contains('alive')) {
+		if (liveNeighbors < 2 || liveNeighbors > 3) return 'dead';else return status;
 	} else {
-		if (liveNeighbors === 3) return 'alive';
-		return status;
+		if (liveNeighbors === 3) return 'alive';else return 'dormant';
 	}
 };
 
 // Set new bloom gif for each live cell
 const getBloom = () => {
-	let idx = Math.floor(Math.random() * (9 - 1)) + 1;
+	let idx = Math.floor(Math.random() * 5);
 	// console.log('blooms is ', blooms, 'idx is ', idx)
 	return __WEBPACK_IMPORTED_MODULE_0__constants__["h" /* blooms */][idx];
 };
