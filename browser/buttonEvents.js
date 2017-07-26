@@ -1,6 +1,6 @@
 import { audio, fireAudio, soundButton, boardState } from './constants';
 import { forEachCell, setNextState, step } from './game';
-import { setVolume } from './soundUtils';
+// import { setVolume } from './soundUtils';
 
 // Start game play
 export const playGame = () => {
@@ -39,6 +39,35 @@ export const clearBoard = () => {
 	boardState.playing = false;
 };
 
+// Audio fade
+/*
+const soundFadeOut = (elem) => {
+	let fadeOut = setInterval(() => {
+		console.log('volume out ', elem.volume)
+		while (elem.volume > 0.1) {
+			elem.volume -= 0.1;
+		}
+		if (elem.volume === 0.0) {
+			clearInterval(fadeOut)
+		}
+	})
+}
+
+const soundFadeIn = (elem) => {
+	// console.log(elem)
+	let fadeIn = setInterval(() => {
+		while (elem.volume < 1) {
+			console.log('volume', elem.volume)
+			elem.volume += 0.1;
+		}
+		if (elem.volume === 1 ) {
+			clearInterval(fadeIn)
+		}
+	})
+
+}
+*/
+
 // Toggle Audio
 let soundOn = true;
 export const toggleSound = () => {
@@ -48,6 +77,7 @@ export const toggleSound = () => {
 		soundButton.innerHTML = 'Sound On';
 		soundOn = false;
 	} else {
+		// soundFadeIn(audio);
 		audio.play();
 		fireAudio.play();
 		soundButton.innerHTML = 'Sound Off';

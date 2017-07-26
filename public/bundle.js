@@ -122,10 +122,9 @@ const boardState = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__game__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__soundUtils__ = __webpack_require__(4);
 
 
-
+// import { setVolume } from './soundUtils';
 
 // Start game play
 const playGame = () => {
@@ -170,6 +169,35 @@ const clearBoard = () => {
 /* harmony export (immutable) */ __webpack_exports__["c"] = clearBoard;
 
 
+// Audio fade
+/*
+const soundFadeOut = (elem) => {
+	let fadeOut = setInterval(() => {
+		console.log('volume out ', elem.volume)
+		while (elem.volume > 0.1) {
+			elem.volume -= 0.1;
+		}
+		if (elem.volume === 0.0) {
+			clearInterval(fadeOut)
+		}
+	})
+}
+
+const soundFadeIn = (elem) => {
+	// console.log(elem)
+	let fadeIn = setInterval(() => {
+		while (elem.volume < 1) {
+			console.log('volume', elem.volume)
+			elem.volume += 0.1;
+		}
+		if (elem.volume === 1 ) {
+			clearInterval(fadeIn)
+		}
+	})
+
+}
+*/
+
 // Toggle Audio
 let soundOn = true;
 const toggleSound = () => {
@@ -179,6 +207,7 @@ const toggleSound = () => {
 		__WEBPACK_IMPORTED_MODULE_0__constants__["d" /* soundButton */].innerHTML = 'Sound On';
 		soundOn = false;
 	} else {
+		// soundFadeIn(audio);
 		__WEBPACK_IMPORTED_MODULE_0__constants__["h" /* audio */].play();
 		__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* fireAudio */].play();
 		__WEBPACK_IMPORTED_MODULE_0__constants__["d" /* soundButton */].innerHTML = 'Sound Off';
@@ -328,12 +357,12 @@ const setNextState = nextBoardState => {
 		if (nextBoardState.hasOwnProperty(cellId)) {
 			let nextCellState = nextBoardState[cellId];
 			__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].cells[cellId] = nextCellState;
-			__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__soundUtils__["a" /* setVolume */])();
 			let cell = document.getElementById(cellId);
 			cell.className = nextCellState;
 			if (cell.className === 'alive') cell.classList.add(getBloom());
 		}
 	}
+	__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__soundUtils__["a" /* setVolume */])();
 };
 /* harmony export (immutable) */ __webpack_exports__["b"] = setNextState;
 
@@ -358,6 +387,11 @@ const step = () => {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants__ = __webpack_require__(0);
 
 
+// volume adjustment to make fireAudio louder
+const adjustCountForVolume = count => {
+	if (count === 0) return count;else return count += 70;
+};
+
 // count dead cells
 const countDeadCells = () => {
 	let deadCells = 0;
@@ -367,14 +401,17 @@ const countDeadCells = () => {
 			deadCells++;
 		}
 	}
-	return deadCells;
+	console.log('deadCells ', deadCells);
+	return adjustCountForVolume(deadCells);
 };
 
 const setVolume = () => {
 	const totalCells = __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].width * __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].height;
 	let deadCells = countDeadCells();
+	console.log('deadCells in setVolume ', deadCells);
 	let fireVolume = deadCells / totalCells;
 	__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* fireAudio */].volume = fireVolume;
+	console.log('fireVolume ', fireVolume);
 	__WEBPACK_IMPORTED_MODULE_0__constants__["h" /* audio */].volume = 1 - fireVolume;
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = setVolume;

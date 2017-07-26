@@ -78,12 +78,12 @@ export const setNextState = (nextBoardState) => {
 		if (nextBoardState.hasOwnProperty(cellId)) {
 			let nextCellState = nextBoardState[cellId]
 			boardState.cells[cellId] = nextCellState
-			setVolume();
 			let cell = document.getElementById(cellId)
 			cell.className = nextCellState
 			if (cell.className === 'alive') cell.classList.add(getBloom());
 		}
 	}
+	setVolume()
 };
 
 // Step is a single iteration of the game
