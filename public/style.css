@@ -29,7 +29,7 @@ body {
 .table {
   order: 2;
   position: relative;
-  margin: auto;
+  margin-right: auto;
   margin-top: 50px;
   margin-bottom: 50px;
   border-collapse: collapse;
@@ -224,31 +224,9 @@ td.dead {
     margin-top: 60px;
     margin-left: -180px;
   }
-/*  body {
-    background-size: cover;
-    background-repeat: none;
-  }
-  .table {
-    border-radius: 0px;
-    background-image: none;
-    background-color: transparent;
-  }*/
 }
 
-@media (max-width: 700px) {
-
-  body {
-    background-size: cover;
-    background-repeat: none;
-  }
-
-  .table {
-    background-image: none;
-    background-color: transparent;
-  }
-}
-
-@media (max-width: 400px) {
+@media (max-width: 650px) {
 
   body {
     background-size: cover;

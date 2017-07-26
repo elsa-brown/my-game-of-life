@@ -25,6 +25,7 @@
     "babel-loader": "^7.1.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
+    "firebase": "^4.1.5",
     "node-sass": "^4.5.3",
     "webpack": "^2.6.0"
   }
