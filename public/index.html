@@ -3,12 +3,13 @@
 <head>
 	<meta charset="utf-8">
 	<title>Game Of Life</title>
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css" />
 	<link rel="stylesheet" href="style.css" />
 	<link href="https://fonts.googleapis.com/css?family=Bellefair" rel="stylesheet">
 </head>
 <body>
+	<!-- flexbox container -->
 	<div class="container">
+	<!-- nav and buttons -->
 		<div class="nav">
 			<div class="title">
 				<a class="title" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Game Of Life</a>
@@ -21,20 +22,19 @@
 					<a href="https://github.com/elsa-brown/my-game-of-life">🌏</a>
 				</div>
 			</div>
-
 		</div>
+	<!-- game board -->
 		<div class="table">
 			<table id="main"></table>
 		</div>
-		<!-- <div class="about">🌏</div> -->
 	</div>
+	<!-- audio -->
 	<audio id="audioPlayer" loop autoplay="true">
 		<source src="audio/life.mp3" type="audio/mp3" />
 	</audio>
 	<audio id="fireAudioPlayer" loop autoplay="true">
 		<source src="audio/fire.mp3" type="audio/mp3"/>
 	</audio>
-
 <script src="bundle.js"></script>
 </body>
 </html>
