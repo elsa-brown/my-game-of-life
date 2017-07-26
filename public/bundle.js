@@ -79,10 +79,10 @@ const canvas = document.getElementById('canvas');
 /* unused harmony export canvas */
 
 const audio = document.getElementById('audioPlayer');
-/* harmony export (immutable) */ __webpack_exports__["g"] = audio;
+/* harmony export (immutable) */ __webpack_exports__["f"] = audio;
 
 const fireAudio = document.getElementById('fireAudioPlayer');
-/* harmony export (immutable) */ __webpack_exports__["f"] = fireAudio;
+/* harmony export (immutable) */ __webpack_exports__["g"] = fireAudio;
 
 
 // -- Buttons --
@@ -198,14 +198,14 @@ const soundFadeIn = (elem) => {
 let soundOn = true;
 const toggleSound = () => {
 	if (soundOn) {
-		__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* audio */].pause();
-		__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* fireAudio */].pause();
+		__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* audio */].pause();
+		__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* fireAudio */].pause();
 		__WEBPACK_IMPORTED_MODULE_0__constants__["c" /* soundButton */].className = 'line-through';
 		soundOn = false;
 	} else {
 		// soundFadeIn(audio);
-		__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* audio */].play();
-		__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* fireAudio */].play();
+		__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* audio */].play();
+		__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* fireAudio */].play();
 		__WEBPACK_IMPORTED_MODULE_0__constants__["c" /* soundButton */].className = null;
 		soundOn = true;
 	}
@@ -253,7 +253,8 @@ const createAndShowBoard = () => {
 		}
 	}
 	// set initial fire volume to zero before game play
-	__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* fireAudio */].volume = 0;
+	__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* audio */].volume = 0.3;
+	__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* fireAudio */].volume = 0;
 	createButtonEvents();
 };
 
@@ -381,9 +382,11 @@ const step = () => {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants__ = __webpack_require__(0);
 
 
+let firstPlay = false;
+
 // volume adjustment to make fireAudio louder
 const adjustCountForVolume = count => {
-	if (count === 0) return count;else return count += 70;
+	if (count === 0) return count;else return count += 80;
 };
 
 // count dead cells
@@ -398,12 +401,22 @@ const countDeadCells = () => {
 	return adjustCountForVolume(deadCells);
 };
 
+// adjust for first play
+const firstPlayAdjust = fireVolume => {
+	if (!firstPlay) {
+		firstPlay = true;
+		return 0.5;
+	} else {
+		return 1 - fireVolume;
+	}
+};
+
 const setVolume = () => {
 	const totalCells = __WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].width * __WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].height;
 	let deadCells = countDeadCells();
 	let fireVolume = deadCells / totalCells;
-	__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* fireAudio */].volume = fireVolume;
-	__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* audio */].volume = 1 - fireVolume;
+	__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* fireAudio */].volume = fireVolume;
+	__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* audio */].volume = firstPlayAdjust(fireVolume);
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = setVolume;
 
