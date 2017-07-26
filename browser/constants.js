@@ -6,7 +6,6 @@ export const fireAudio = document.getElementById('fireAudioPlayer');
 
 // -- Buttons --
 export const playButton = document.getElementById('play');
-export const pauseButton = document.getElementById('pause');
 export const clearButton = document.getElementById('clear');
 export const soundButton = document.getElementById('sound');
 

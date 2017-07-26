@@ -1,16 +1,14 @@
-import { main, fireAudio, playButton, pauseButton, clearButton, soundButton, boardState } from './constants';
-import { playGame, pauseGame, clearBoard, toggleSound } from './buttonEvents.js'
+import { main, fireAudio, playButton, clearButton, soundButton, boardState } from './constants';
+import { togglePlay, clearBoard, toggleSound } from './buttonEvents.js'
 
 // -- Buttons --
 const createButtonEvents = () => {
 
-	playButton.addEventListener('click', () => playGame());
-
-	pauseButton.addEventListener('click', () => pauseGame());
+	playButton.addEventListener('click', () => togglePlay());
 
 	clearButton.addEventListener('click', () => clearBoard());
 
-	soundButton.innerHTML = 'Sound Off';
+	soundButton.innerHTML = 'Sound';
 	soundButton.addEventListener('click', () => toggleSound());
 }
 

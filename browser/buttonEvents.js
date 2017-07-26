@@ -1,9 +1,9 @@
-import { audio, fireAudio, soundButton, boardState } from './constants';
+import { audio, fireAudio, playButton, soundButton, boardState } from './constants';
 import { forEachCell, setNextState, step } from './game';
 // import { setVolume } from './soundUtils';
 
 // Start game play
-export const playGame = () => {
+export const togglePlay = () => {
 	if (!boardState.playing) {
 		let nextBoardState = Object.assign({}, boardState.cells)
 
@@ -14,16 +14,15 @@ export const playGame = () => {
 		})
 		setNextState(nextBoardState)
 
+		playButton.innerHTML = 'Pause'
 		boardState.playing = true;
+		boardState.interval = setInterval(step, 2100)
+	} else {
+		clearInterval(boardState.interval);
+		boardState.interval = null;
+		playButton.innerHTML = 'Play'
+		boardState.playing = false;
 	}
-
-	boardState.interval = setInterval(step, 2100)
-};
-
-// Pause game
-export const pauseGame = () => {
-	clearInterval(boardState.interval);
-	boardState.interval = null;
 };
 
 // Clear board
@@ -35,8 +34,10 @@ export const clearBoard = () => {
 	});
 
 	setNextState(nextBoardState);
+	clearInterval(boardState.interval)
 	boardState.interval = null;
 	boardState.playing = false;
+	playButton.innerHTML = 'Play'
 };
 
 // Audio fade
@@ -74,13 +75,13 @@ export const toggleSound = () => {
 	if (soundOn) {
 		audio.pause();
 		fireAudio.pause();
-		soundButton.innerHTML = 'Sound On';
+		soundButton.className = 'line-through';
 		soundOn = false;
 	} else {
 		// soundFadeIn(audio);
 		audio.play();
 		fireAudio.play();
-		soundButton.innerHTML = 'Sound Off';
+		soundButton.className = null;
 		soundOn = true;
 	}
 };

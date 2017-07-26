@@ -5,6 +5,10 @@ body {
 	padding: 30px;
 }
 
+.line-through {
+  text-decoration: line-through;
+}
+
 #pond {
   margin: 0 auto;
   width: 600px;
