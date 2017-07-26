@@ -2,6 +2,7 @@
 export const main = document.getElementById('main');
 export const canvas = document.getElementById('canvas');
 export const audio = document.getElementById('audioPlayer');
+export const fireAudio = document.getElementById('fireAudioPlayer');
 
 // -- Buttons --
 export const playButton = document.getElementById('play');

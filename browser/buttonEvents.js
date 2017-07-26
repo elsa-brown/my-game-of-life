@@ -1,5 +1,6 @@
-import { audio, soundButton, boardState } from './constants';
+import { audio, fireAudio, soundButton, boardState } from './constants';
 import { forEachCell, setNextState, step } from './game';
+import { setVolume } from './soundUtils';
 
 // Start game play
 export const playGame = () => {
@@ -7,20 +8,16 @@ export const playGame = () => {
 		let nextBoardState = Object.assign({}, boardState.cells)
 
 		forEachCell((cell, row, col) => {
-			// console.log('in forEach')
 			if (Math.floor((row + col) * Math.random()) % 5 === 0) {
 				nextBoardState[`${col}-${row}`] = 'alive'
 			}
 		})
-
 		setNextState(nextBoardState)
 
 		boardState.playing = true;
 	}
 
 	boardState.interval = setInterval(step, 2100)
-	console.log('boardState interval ', boardState.interval)
-
 };
 
 // Pause game
@@ -47,10 +44,12 @@ let soundOn = true;
 export const toggleSound = () => {
 	if (soundOn) {
 		audio.pause();
+		fireAudio.pause();
 		soundButton.innerHTML = 'Sound On';
 		soundOn = false;
 	} else {
 		audio.play();
+		fireAudio.play();
 		soundButton.innerHTML = 'Sound Off';
 		soundOn = true;
 	}

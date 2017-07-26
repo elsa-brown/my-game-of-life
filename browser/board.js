@@ -1,4 +1,4 @@
-import { main, playButton, pauseButton, clearButton, soundButton, boardState } from './constants';
+import { main, fireAudio, playButton, pauseButton, clearButton, soundButton, boardState } from './constants';
 import { playGame, pauseGame, clearBoard, toggleSound } from './buttonEvents.js'
 
 // -- Buttons --
@@ -32,6 +32,8 @@ const createAndShowBoard = () => {
 			row.appendChild(cell);
 		}
 	}
+	// set initial fire volume to zero before game play
+	fireAudio.volume = 0;
 	createButtonEvents()
 }
 

@@ -79,7 +79,10 @@ const canvas = document.getElementById('canvas');
 /* unused harmony export canvas */
 
 const audio = document.getElementById('audioPlayer');
-/* harmony export (immutable) */ __webpack_exports__["g"] = audio;
+/* harmony export (immutable) */ __webpack_exports__["h"] = audio;
+
+const fireAudio = document.getElementById('fireAudioPlayer');
+/* harmony export (immutable) */ __webpack_exports__["g"] = fireAudio;
 
 
 // -- Buttons --
@@ -98,7 +101,7 @@ const soundButton = document.getElementById('sound');
 
 // -- Cell Background Images --
 const blooms = ['bloom1', 'bloom2', 'bloom3', 'bloom4', 'bloom5'];
-/* harmony export (immutable) */ __webpack_exports__["h"] = blooms;
+/* harmony export (immutable) */ __webpack_exports__["i"] = blooms;
 
 
 // -- Board Properties --
@@ -119,6 +122,8 @@ const boardState = {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__game__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__soundUtils__ = __webpack_require__(4);
+
 
 
 
@@ -128,19 +133,16 @@ const playGame = () => {
 		let nextBoardState = Object.assign({}, __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].cells);
 
 		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__game__["a" /* forEachCell */])((cell, row, col) => {
-			// console.log('in forEach')
 			if (Math.floor((row + col) * Math.random()) % 5 === 0) {
 				nextBoardState[`${col}-${row}`] = 'alive';
 			}
 		});
-
 		__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__game__["b" /* setNextState */])(nextBoardState);
 
 		__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].playing = true;
 	}
 
 	__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].interval = setInterval(__WEBPACK_IMPORTED_MODULE_1__game__["c" /* step */], 2100);
-	console.log('boardState interval ', __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].interval);
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = playGame;
 
@@ -172,11 +174,13 @@ const clearBoard = () => {
 let soundOn = true;
 const toggleSound = () => {
 	if (soundOn) {
-		__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* audio */].pause();
+		__WEBPACK_IMPORTED_MODULE_0__constants__["h" /* audio */].pause();
+		__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* fireAudio */].pause();
 		__WEBPACK_IMPORTED_MODULE_0__constants__["d" /* soundButton */].innerHTML = 'Sound On';
 		soundOn = false;
 	} else {
-		__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* audio */].play();
+		__WEBPACK_IMPORTED_MODULE_0__constants__["h" /* audio */].play();
+		__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* fireAudio */].play();
 		__WEBPACK_IMPORTED_MODULE_0__constants__["d" /* soundButton */].innerHTML = 'Sound Off';
 		soundOn = true;
 	}
@@ -225,6 +229,8 @@ const createAndShowBoard = () => {
 			row.appendChild(cell);
 		}
 	}
+	// set initial fire volume to zero before game play
+	__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* fireAudio */].volume = 0;
 	createButtonEvents();
 };
 
@@ -241,6 +247,8 @@ createAndShowBoard();
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__soundUtils__ = __webpack_require__(4);
+
 
 
 // Get individual cell from document
@@ -295,14 +303,11 @@ const countLiveNeighbors = neighborIds => {
 
 // Determine next state for a single cell, based on numbr of live neighbors
 const getNextState = (cell, row, col) => {
-	// console.log('in getNextState', cell, 'cell')
 	let neighborhood = getNeighborhood(cell, row, col);
 
 	let liveNeighbors = countLiveNeighbors(neighborhood);
 
 	let status = cell.classList;
-	console.log('status ', status);
-	// if (status === 'died') return status
 
 	if (status.contains('alive')) {
 		if (liveNeighbors < 2 || liveNeighbors > 3) return 'dead';else return status;
@@ -314,8 +319,7 @@ const getNextState = (cell, row, col) => {
 // Set new bloom gif for each live cell
 const getBloom = () => {
 	let idx = Math.floor(Math.random() * 5);
-	// console.log('blooms is ', blooms, 'idx is ', idx)
-	return __WEBPACK_IMPORTED_MODULE_0__constants__["h" /* blooms */][idx];
+	return __WEBPACK_IMPORTED_MODULE_0__constants__["i" /* blooms */][idx];
 };
 
 // Set next state for the entire board
@@ -324,6 +328,7 @@ const setNextState = nextBoardState => {
 		if (nextBoardState.hasOwnProperty(cellId)) {
 			let nextCellState = nextBoardState[cellId];
 			__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].cells[cellId] = nextCellState;
+			__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__soundUtils__["a" /* setVolume */])();
 			let cell = document.getElementById(cellId);
 			cell.className = nextCellState;
 			if (cell.className === 'alive') cell.classList.add(getBloom());
@@ -343,6 +348,36 @@ const step = () => {
 	setNextState(nextBoardState);
 };
 /* harmony export (immutable) */ __webpack_exports__["c"] = step;
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants__ = __webpack_require__(0);
+
+
+// count dead cells
+const countDeadCells = () => {
+	let deadCells = 0;
+	let cells = __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].cells;
+	for (var cell in cells) {
+		if (cells[cell] === 'dead') {
+			deadCells++;
+		}
+	}
+	return deadCells;
+};
+
+const setVolume = () => {
+	const totalCells = __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].width * __WEBPACK_IMPORTED_MODULE_0__constants__["f" /* boardState */].height;
+	let deadCells = countDeadCells();
+	let fireVolume = deadCells / totalCells;
+	__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* fireAudio */].volume = fireVolume;
+	__WEBPACK_IMPORTED_MODULE_0__constants__["h" /* audio */].volume = 1 - fireVolume;
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = setVolume;
 
 
 /***/ })

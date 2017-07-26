@@ -1,4 +1,5 @@
 import { blooms, boardState } from './constants';
+import { setVolume } from './soundUtils';
 
 // Get individual cell from document
 const getCell = (row, col) => {
@@ -50,14 +51,11 @@ const countLiveNeighbors = (neighborIds) => {
 
 // Determine next state for a single cell, based on numbr of live neighbors
 const getNextState = (cell, row, col) => {
-	// console.log('in getNextState', cell, 'cell')
 	let neighborhood = getNeighborhood(cell, row, col);
 
 	let liveNeighbors = countLiveNeighbors(neighborhood);
 
 	let status = cell.classList;
-	console.log('status ', status)
-	// if (status === 'died') return status
 
 	if (status.contains('alive')) {
 		if (liveNeighbors < 2 || liveNeighbors > 3) return 'dead';
@@ -71,7 +69,6 @@ const getNextState = (cell, row, col) => {
 // Set new bloom gif for each live cell
 const getBloom = () => {
 	let idx = Math.floor(Math.random() * 5)
-	// console.log('blooms is ', blooms, 'idx is ', idx)
 	return blooms[idx]
 }
 
@@ -81,6 +78,7 @@ export const setNextState = (nextBoardState) => {
 		if (nextBoardState.hasOwnProperty(cellId)) {
 			let nextCellState = nextBoardState[cellId]
 			boardState.cells[cellId] = nextCellState
+			setVolume();
 			let cell = document.getElementById(cellId)
 			cell.className = nextCellState
 			if (cell.className === 'alive') cell.classList.add(getBloom());
