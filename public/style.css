@@ -7,6 +7,8 @@ body {
   font-size: 28px;
 }
 
+/* flexbox styling */
+
 .container {
   width: 100%;
   display: flex;
@@ -38,6 +40,8 @@ body {
   background-size: cover;
 }
 
+/* links */
+
 .about {
   font-size: 24px;
   margin-top: 30px;
@@ -67,13 +71,15 @@ body {
 }
 
 .title:hover {
-  color: transparent;
+  cursor: help;
 }
 
 .title:visited {
   text-decoration: none;
   color: white;
 }
+
+/* buttons */
 
 button {
   background-color: transparent;
@@ -191,18 +197,6 @@ td.dead {
     opacity: 0;
   }
 }
-
-/*@-webkit-keyframes hover {
-  from {
-    opacity: 1;
-  }
-  50% {
-    color: transparent;
-  }
-  to {
-    opacity: 0;
-  }
-}*/
 
 /* media queries */
 
