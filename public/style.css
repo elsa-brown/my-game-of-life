@@ -2,7 +2,15 @@ body {
   background-image: url(images/pond-crop.gif);
 	background-size: cover;
 	background-repeat: none;
-	padding: 30px;
+	margin-left: 30px;
+  margin-right: 30px;
+  padding-bottom: 30px;
+  font-family: 'Bellefair', serif;
+  color: white;
+}
+
+p {
+  font-size: 28px;
 }
 
 .line-through {
