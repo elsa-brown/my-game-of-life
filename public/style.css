@@ -163,6 +163,13 @@ td.dead {
   -webkit-animation-duration: 2.1s;
 }
 
+td.dead-paused {
+  background-image: url(images/fire-800ms.gif);
+  background-size: 100%;
+  -webkit-animation-name: fadein;
+  -webkit-animation-duration: 0.2s; 
+}
+
 /* animations */
 
 @-webkit-keyframes fadebloom {
@@ -195,6 +202,15 @@ td.dead {
   }
   to {
     opacity: 0;
+  }
+}
+
+@-webkit-keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 

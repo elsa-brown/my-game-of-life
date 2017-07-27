@@ -107,7 +107,8 @@ const boardState = {
 	height: 20,
 	interval: null,
 	cells: {},
-	playing: false
+	playing: false,
+	firstPlay: false
 };
 /* harmony export (immutable) */ __webpack_exports__["e"] = boardState;
 
@@ -121,7 +122,6 @@ const boardState = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__game__ = __webpack_require__(3);
 
 
-// import { setVolume } from './soundUtils';
 
 // Start game play
 const togglePlay = () => {
@@ -139,6 +139,14 @@ const togglePlay = () => {
 		__WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].playing = true;
 		__WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].interval = setInterval(__WEBPACK_IMPORTED_MODULE_1__game__["c" /* step */], 2100);
 	} else {
+		// forEachCell((cell, row, col) => {
+		// 	if cell.status === 'dead'
+
+		// })
+
+		// loop thru state.cells to find dead cells and return their id's
+		// grab dead cells from dom by id and set their className to .dead-paused ?
+
 		clearInterval(__WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].interval);
 		__WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].interval = null;
 		__WEBPACK_IMPORTED_MODULE_0__constants__["a" /* playButton */].innerHTML = 'Play';
@@ -161,6 +169,9 @@ const clearBoard = () => {
 	__WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].interval = null;
 	__WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].playing = false;
 	__WEBPACK_IMPORTED_MODULE_0__constants__["a" /* playButton */].innerHTML = 'Play';
+
+	__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* audio */].volume = 0.3;
+	__WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].firstPlay = false;
 };
 /* harmony export (immutable) */ __webpack_exports__["b"] = clearBoard;
 
@@ -382,11 +393,11 @@ const step = () => {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__constants__ = __webpack_require__(0);
 
 
-let firstPlay = false;
+let firstPlay = __WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].firstPlay;
 
 // volume adjustment to make fireAudio louder
 const adjustCountForVolume = count => {
-	if (count === 0) return count;else return count += 80;
+	if (count === 0) return count;else return count += 70;
 };
 
 // count dead cells

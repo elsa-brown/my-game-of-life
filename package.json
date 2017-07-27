@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.dist.config.js",
     "build-watch": "npm run build -- -w",
-    "start": "firebase serve"
+    "start": "nodemon ./server/index.js"
   },
   "repository": {
     "type": "git",

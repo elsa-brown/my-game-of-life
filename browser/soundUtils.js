@@ -1,11 +1,11 @@
 import { audio, fireAudio, boardState } from './constants';
 
-let firstPlay = false;
+let firstPlay = boardState.firstPlay;
 
 // volume adjustment to make fireAudio louder
 const adjustCountForVolume = (count) => {
 	if (count === 0) return count
-	else return count += 80
+	else return count += 70
 }
 
 // count dead cells

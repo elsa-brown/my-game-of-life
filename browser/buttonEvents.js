@@ -1,6 +1,5 @@
 import { audio, fireAudio, playButton, soundButton, boardState } from './constants';
 import { forEachCell, setNextState, step } from './game';
-// import { setVolume } from './soundUtils';
 
 // Start game play
 export const togglePlay = () => {
@@ -18,10 +17,19 @@ export const togglePlay = () => {
 		boardState.playing = true;
 		boardState.interval = setInterval(step, 2100)
 	} else {
+		// forEachCell((cell, row, col) => {
+		// 	if cell.status === 'dead'
+
+		// })
+
+		// loop thru state.cells to find dead cells and return their id's
+		// grab dead cells from dom by id and set their className to .dead-paused ?
+
 		clearInterval(boardState.interval);
 		boardState.interval = null;
 		playButton.innerHTML = 'Play'
 		boardState.playing = false;
+
 	}
 };
 
@@ -38,6 +46,9 @@ export const clearBoard = () => {
 	boardState.interval = null;
 	boardState.playing = false;
 	playButton.innerHTML = 'Play'
+
+	audio.volume = 0.3;
+	boardState.firstPlay = false;
 };
 
 // Audio fade

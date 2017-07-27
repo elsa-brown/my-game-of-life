@@ -19,4 +19,5 @@ export const boardState = {
 	interval: null,
 	cells: {},
 	playing: false,
+	firstPlay: false
 };
