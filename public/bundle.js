@@ -139,14 +139,6 @@ const togglePlay = () => {
 		__WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].playing = true;
 		__WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].interval = setInterval(__WEBPACK_IMPORTED_MODULE_1__game__["c" /* step */], 2100);
 	} else {
-		// forEachCell((cell, row, col) => {
-		// 	if cell.status === 'dead'
-
-		// })
-
-		// loop thru state.cells to find dead cells and return their id's
-		// grab dead cells from dom by id and set their className to .dead-paused ?
-
 		clearInterval(__WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].interval);
 		__WEBPACK_IMPORTED_MODULE_0__constants__["e" /* boardState */].interval = null;
 		__WEBPACK_IMPORTED_MODULE_0__constants__["a" /* playButton */].innerHTML = 'Play';
@@ -176,35 +168,6 @@ const clearBoard = () => {
 /* harmony export (immutable) */ __webpack_exports__["b"] = clearBoard;
 
 
-// Audio fade
-/*
-const soundFadeOut = (elem) => {
-	let fadeOut = setInterval(() => {
-		console.log('volume out ', elem.volume)
-		while (elem.volume > 0.1) {
-			elem.volume -= 0.1;
-		}
-		if (elem.volume === 0.0) {
-			clearInterval(fadeOut)
-		}
-	})
-}
-
-const soundFadeIn = (elem) => {
-	// console.log(elem)
-	let fadeIn = setInterval(() => {
-		while (elem.volume < 1) {
-			console.log('volume', elem.volume)
-			elem.volume += 0.1;
-		}
-		if (elem.volume === 1 ) {
-			clearInterval(fadeIn)
-		}
-	})
-
-}
-*/
-
 // Toggle Audio
 let soundOn = true;
 const toggleSound = () => {
@@ -214,7 +177,6 @@ const toggleSound = () => {
 		__WEBPACK_IMPORTED_MODULE_0__constants__["c" /* soundButton */].className = 'line-through';
 		soundOn = false;
 	} else {
-		// soundFadeIn(audio);
 		__WEBPACK_IMPORTED_MODULE_0__constants__["f" /* audio */].play();
 		__WEBPACK_IMPORTED_MODULE_0__constants__["g" /* fireAudio */].play();
 		__WEBPACK_IMPORTED_MODULE_0__constants__["c" /* soundButton */].className = null;

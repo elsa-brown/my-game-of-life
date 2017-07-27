@@ -17,14 +17,6 @@ export const togglePlay = () => {
 		boardState.playing = true;
 		boardState.interval = setInterval(step, 2100)
 	} else {
-		// forEachCell((cell, row, col) => {
-		// 	if cell.status === 'dead'
-
-		// })
-
-		// loop thru state.cells to find dead cells and return their id's
-		// grab dead cells from dom by id and set their className to .dead-paused ?
-
 		clearInterval(boardState.interval);
 		boardState.interval = null;
 		playButton.innerHTML = 'Play'
@@ -51,35 +43,6 @@ export const clearBoard = () => {
 	boardState.firstPlay = false;
 };
 
-// Audio fade
-/*
-const soundFadeOut = (elem) => {
-	let fadeOut = setInterval(() => {
-		console.log('volume out ', elem.volume)
-		while (elem.volume > 0.1) {
-			elem.volume -= 0.1;
-		}
-		if (elem.volume === 0.0) {
-			clearInterval(fadeOut)
-		}
-	})
-}
-
-const soundFadeIn = (elem) => {
-	// console.log(elem)
-	let fadeIn = setInterval(() => {
-		while (elem.volume < 1) {
-			console.log('volume', elem.volume)
-			elem.volume += 0.1;
-		}
-		if (elem.volume === 1 ) {
-			clearInterval(fadeIn)
-		}
-	})
-
-}
-*/
-
 // Toggle Audio
 let soundOn = true;
 export const toggleSound = () => {
@@ -89,7 +52,6 @@ export const toggleSound = () => {
 		soundButton.className = 'line-through';
 		soundOn = false;
 	} else {
-		// soundFadeIn(audio);
 		audio.play();
 		fireAudio.play();
 		soundButton.className = null;
