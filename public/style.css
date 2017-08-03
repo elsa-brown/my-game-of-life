@@ -16,11 +16,12 @@ body {
 }
 
 .nav {
-  order: 1;
+/*  order: 1;
   max-width: 150px;
   min-width: 150px;
-  align-self: flex-start;
-  margin-top: 30px;
+  align-self: flex-start;*/
+  position: absolute;
+  margin-top: -10px;
   margin-left: 30px;
 }
 
@@ -29,15 +30,19 @@ body {
 }
 
 .table {
-  order: 2;
+  width: 682px;
   position: relative;
-  margin-right: auto;
+  margin: auto;
   margin-top: 50px;
   margin-bottom: 50px;
   border-collapse: collapse;
   border-radius: 800px;
   background-image: url(images/pond-square.gif);
   background-size: cover;
+}
+
+#main {
+  border-radius: 800px;
 }
 
 /* links */

@@ -14,8 +14,8 @@ export const blooms = ['bloom1', 'bloom2', 'bloom3', 'bloom4', 'bloom5'];
 
 // -- Board Properties --
 export const boardState = {
-	width: 20,
-	height: 20,
+	width: 18,
+	height: 18,
 	interval: null,
 	cells: {},
 	playing: false,
