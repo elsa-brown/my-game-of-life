@@ -233,11 +233,6 @@ const createAndShowBoard = () => {
 
 createAndShowBoard();
 
-// set each cell to a volume level audio.volume=number btw 0.0 and 1.0
-// make the volume a number relative to the person's chosen number{?}
-// i wonder if there could be spatialization of the sound.... 
-// each cell is a PannerNode that is turned on or off depending on the cell status
-
 /***/ }),
 /* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
