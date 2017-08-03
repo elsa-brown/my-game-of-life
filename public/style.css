@@ -7,19 +7,7 @@ body {
   font-size: 28px;
 }
 
-/* flexbox styling */
-
-.container {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-}
-
 .nav {
-/*  order: 1;
-  max-width: 150px;
-  min-width: 150px;
-  align-self: flex-start;*/
   position: absolute;
   margin-top: -10px;
   margin-left: 30px;
