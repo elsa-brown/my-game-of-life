@@ -37,4 +37,3 @@ const createAndShowBoard = () => {
 }
 
 createAndShowBoard();
-

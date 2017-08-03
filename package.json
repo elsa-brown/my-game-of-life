@@ -1,12 +1,16 @@
 {
   "name": "game-of-life",
   "version": "1.0.0",
-  "description": "",
+  "description": "my game of life",
   "main": "./server/index.js",
+  "engines": {
+    "node": "7.9.0",
+    "npm": "5.2.0"
+  },
   "scripts": {
     "build": "webpack --config webpack.dist.config.js",
     "build-watch": "npm run build -- -w",
-    "start": "nodemon ./server/index.js"
+    "start": "node ./server/index.js"
   },
   "repository": {
     "type": "git",
