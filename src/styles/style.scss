@@ -1,0 +1,214 @@
+@use 'normalize.scss';
+@use 'system' as *;
+
+a {
+  min-height: 48px;
+  min-width: 48px;
+  text-decoration: none;
+  color: white;
+  cursor: help;
+  &:hover {
+    color: blue;
+    border: solid 2px blue;
+  }
+}
+
+body {
+  padding: $s2;
+  background-image: url(../images/pond.gif);
+  background-size: cover;
+  font-family: 'Bellefair', serif;
+}
+
+button {
+  background-color: transparent;
+  border: 1px solid white;
+  border-radius: 2px;
+  color: white;
+  font-family: 'Helvetica', sans-serif;
+  letter-spacing: 0.025rem;
+  margin-bottom: $s-1;
+  padding: $s-2 0;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.5;
+  }
+  &.off {
+    text-decoration: line-through;
+  }
+}
+
+h1 {
+  font-size: $s4;
+  font-weight: 400;
+  letter-spacing: 0.05rem;
+  margin: 0 0 $s1;
+  a:hover {
+    text-decoration: underline;
+    border: none;
+  }
+}
+
+header {
+  position: absolute;
+  width: $s5;
+
+  & > a {
+    height: 48px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: $s2;
+  }
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $s1;
+}
+
+.table {
+  width: 682px;
+  position: relative;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border-collapse: collapse;
+  border-radius: 800px;
+  background-image: url(../images/pond-square.gif);
+  background-size: cover;
+}
+
+#main {
+  border-radius: 800px;
+}
+
+/* links */
+
+.about {
+  font-size: 24px;
+  margin-top: 30px;
+  text-decoration: none;
+}
+
+.about a {
+  text-decoration: none;
+}
+
+.about a:hover {
+  cursor: help;
+}
+
+.about a:focus {
+  text-decoration: none;
+}
+
+.about a:visited {
+  text-decoration: none;
+}
+
+
+
+/* clear button */
+
+#clear:active {
+  color: transparent;
+}
+
+/* table */
+
+td {
+  width: 32px;
+  height: 32px;
+  border: none;
+}
+
+/* cell state styling */
+
+td.dormant {
+	background-image: none;
+}
+
+td.alive {
+  background-size: 100%;
+}
+
+td > img {
+  width: 32;
+}
+
+td.dead {
+  background-image: url(../images/fire.gif);
+  background-size: 100%;
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 2.1s;
+}
+
+/* animations */
+
+@-webkit-keyframes fadebloom {
+  from {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.5
+  }
+  50% {
+    opacity: 1
+  }
+  75% {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes fade {
+  from {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* media queries */
+
+// @media (max-width: 900px) {
+//   .table {
+//     display: inline-flex;
+//     min-width: 650px;
+//   }
+//   button {
+//     height: 25px;
+//     margin-right: 10px;
+//     padding-top: -4px;
+//     padding-bottom: -4px;
+//   }
+//   .about {
+//     margin-top: 60px;
+//     margin-left: -180px;
+//   }
+// }
+
+// @media (max-width: 650px) {
+//   body {
+//     background-size: cover;
+//   }
+
+//   .table {
+//     background-image: none;
+//     background-color: transparent;
+//   }
+// }
+
+

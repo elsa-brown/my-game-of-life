@@ -1,39 +1,44 @@
-import { audio, fireAudio, boardState } from './constants';
+import { audioNature, audioFire, boardState } from './constants';
 
-let firstPlay = boardState.firstPlay;
+/* SCROLL TO BOTTOM */
 
-// volume adjustment to make fireAudio louder
-const adjustCountForVolume = (count) => {
-	if (count === 0) return count
-	else return count += 70
-}
+const getVolumeNature = (volumeFire) => {
+	
+	let volumeNature;
 
-// count dead cells
-const countDeadCells = () => {
-	let deadCells = 0;
-	let cells = boardState.cells
-	for (var cell in cells) {
-		if (cells[cell] === 'dead') {
-			deadCells++
-		}
-	}
-	return adjustCountForVolume(deadCells)
-}
+	if (boardState.hasPlayed) {
+		boardState.hasPlayed = !!boardState.hasPlayed
 
-// adjust for first play
-const firstPlayAdjust = (fireVolume) => {
-	if (!firstPlay) {
-		firstPlay = true;
-		return 0.5
+		volumeNature = 0.5
 	} else {
-		return 1 - fireVolume;
+		volumeNature = 1 - volumeFire;
 	}
+	
+	return volumeNature;
+}
+
+const getVolumeFire = () => {
+
+	let volumeFire;
+
+	const numTotalCells = Object.keys(boardState.cells).length;
+	const numDeadCells = Object.values(boardState.cells).filter(
+			cell => cell === 'dead'
+		).length;
+	console.log(numDeadCells)
+		
+	volumeFire === 0 ? 
+		0 : 
+		numDeadCells + 70;
+
+	return volumeFire / numTotalCells;
 }
 
 export const setVolume = () => {
-	const totalCells = boardState.width * boardState.height;
-	let deadCells = countDeadCells()
-	let fireVolume = deadCells / totalCells
-	fireAudio.volume = fireVolume
-	audio.volume = firstPlayAdjust(fireVolume)
+	const volumeFire = getVolumeFire()
+	console.log(volumeFire)
+	const volumeNature = getVolumeNature(volumeFire)
+
+	audioFire.volume = volumeFire;
+	audioNature.volume = volumeNature;
 }

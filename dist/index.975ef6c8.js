@@ -558,13 +558,16 @@ function hmrAccept(bundle, id) {
 
 },{}],"8lqZg":[function(require,module,exports) {
 var _constants = require("./modules/constants");
-var _buttonEventsJs = require("./modules/buttonEvents.js");
+var _eventHandlersJs = require("./modules/eventHandlers.js");
 // -- Buttons --
-const createButtonEvents = ()=>{
-    (0, _constants.playButton).addEventListener("click", ()=>(0, _buttonEventsJs.togglePlay)());
-    (0, _constants.clearButton).addEventListener("click", ()=>(0, _buttonEventsJs.clearBoard)());
-    (0, _constants.soundButton).innerHTML = "Sound";
-    (0, _constants.soundButton).addEventListener("click", ()=>(0, _buttonEventsJs.toggleSound)());
+const initButtons = ()=>{
+    (0, _constants.playButton).addEventListener("click", ()=>(0, _eventHandlersJs.togglePlay)());
+    (0, _constants.clearButton).addEventListener("click", ()=>(0, _eventHandlersJs.clearBoard)());
+    (0, _constants.soundButton).addEventListener("click", ()=>(0, _eventHandlersJs.toggleSound)());
+};
+const initAudio = ()=>{
+    (0, _constants.audioNature).volume = 0.3;
+    (0, _constants.audioFire).volume = 0;
 };
 // -- Initital Board Set-Up --
 const createAndShowBoard = ()=>{
@@ -583,26 +586,24 @@ const createAndShowBoard = ()=>{
             row.appendChild(cell);
         }
     }
-    // set initial fire volume to zero before game play
-    (0, _constants.audio).volume = 0.3;
-    (0, _constants.fireAudio).volume = 0;
-    createButtonEvents();
 };
+initButtons();
+initAudio();
 createAndShowBoard();
 
-},{"./modules/constants":"e0Zqh","./modules/buttonEvents.js":"7vzQa"}],"e0Zqh":[function(require,module,exports) {
+},{"./modules/constants":"e0Zqh","./modules/eventHandlers.js":"cw0Bk"}],"e0Zqh":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "intervalMs", ()=>intervalMs);
+parcelHelpers.export(exports, "blooms", ()=>blooms);
 parcelHelpers.export(exports, "main", ()=>main);
 parcelHelpers.export(exports, "canvas", ()=>canvas);
-parcelHelpers.export(exports, "audio", ()=>audio);
-parcelHelpers.export(exports, "fireAudio", ()=>fireAudio);
+parcelHelpers.export(exports, "audioNature", ()=>audioNature);
+parcelHelpers.export(exports, "audioFire", ()=>audioFire);
 parcelHelpers.export(exports, "playButton", ()=>playButton);
 parcelHelpers.export(exports, "clearButton", ()=>clearButton);
 parcelHelpers.export(exports, "soundButton", ()=>soundButton);
-parcelHelpers.export(exports, "blooms", ()=>blooms);
 parcelHelpers.export(exports, "boardState", ()=>boardState);
-parcelHelpers.export(exports, "intervalMs", ()=>intervalMs);
 var _bloom11XGif = require("../images/bloom-1-1x.gif");
 var _bloom11XGifDefault = parcelHelpers.interopDefault(_bloom11XGif);
 var _bloom21XGif = require("../images/bloom-2-1x.gif");
@@ -613,13 +614,7 @@ var _bloom41XGif = require("../images/bloom-4-1x.gif");
 var _bloom41XGifDefault = parcelHelpers.interopDefault(_bloom41XGif);
 var _bloom572PxGif = require("../images/bloom-5-72px.gif");
 var _bloom572PxGifDefault = parcelHelpers.interopDefault(_bloom572PxGif);
-const main = document.getElementById("main");
-const canvas = document.getElementById("canvas");
-const audio = document.getElementById("audioPlayer");
-const fireAudio = document.getElementById("fireAudioPlayer");
-const playButton = document.getElementById("play");
-const clearButton = document.getElementById("clear");
-const soundButton = document.getElementById("sound");
+const intervalMs = 4000;
 const blooms = [
     (0, _bloom11XGifDefault.default),
     (0, _bloom21XGifDefault.default),
@@ -627,6 +622,13 @@ const blooms = [
     (0, _bloom41XGifDefault.default),
     (0, _bloom572PxGifDefault.default)
 ];
+const main = document.getElementById("main");
+const canvas = document.getElementById("canvas");
+const audioNature = document.getElementById("audioPlayer");
+const audioFire = document.getElementById("fireAudioPlayer");
+const playButton = document.getElementById("play");
+const clearButton = document.getElementById("clear");
+const soundButton = document.getElementById("sound");
 const boardState = {
     width: 18,
     height: 18,
@@ -635,7 +637,6 @@ const boardState = {
     playing: false,
     firstPlay: false
 };
-const intervalMs = 4000;
 
 },{"../images/bloom-1-1x.gif":"9F8ZI","../images/bloom-2-1x.gif":"8ugN4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../images/bloom-3-1x.gif":"7oCXt","../images/bloom-4-1x.gif":"fMaee","../images/bloom-5-72px.gif":"5P0hS"}],"9F8ZI":[function(require,module,exports) {
 module.exports = require("4988ff20c5d160e4").getBundleURL("bLxZJ") + "bloom-1-1x.0b776264.gif" + "?" + Date.now();
@@ -716,7 +717,7 @@ module.exports = require("5321a321f2186079").getBundleURL("bLxZJ") + "bloom-4-1x
 },{"5321a321f2186079":"lgJ39"}],"5P0hS":[function(require,module,exports) {
 module.exports = require("3e74793eb9ae202c").getBundleURL("bLxZJ") + "bloom-5-72px.2597b025.gif" + "?" + Date.now();
 
-},{"3e74793eb9ae202c":"lgJ39"}],"7vzQa":[function(require,module,exports) {
+},{"3e74793eb9ae202c":"lgJ39"}],"cw0Bk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "togglePlay", ()=>togglePlay);
@@ -751,21 +752,21 @@ const clearBoard = ()=>{
     (0, _constants.boardState).interval = null;
     (0, _constants.boardState).playing = false;
     (0, _constants.playButton).innerHTML = "Play";
-    (0, _constants.audio).volume = 0.3;
+    (0, _constants.audioNature).volume = 0.3;
     (0, _constants.boardState).firstPlay = false;
 };
 // Toggle Audio
-let soundOn = true;
-const toggleSound = ()=>{
+let soundOn = false;
+const toggleSound = (evt)=>{
     if (soundOn) {
-        (0, _constants.audio).pause();
-        (0, _constants.fireAudio).pause();
-        (0, _constants.soundButton).className = "line-through";
+        (0, _constants.audioNature).pause();
+        (0, _constants.audioFire).pause();
+        (0, _constants.soundButton).classList.add("off");
         soundOn = false;
     } else {
-        (0, _constants.audio).play();
-        (0, _constants.fireAudio).play();
-        (0, _constants.soundButton).className = null;
+        (0, _constants.audioNature).play();
+        (0, _constants.audioFire).play();
+        (0, _constants.soundButton).classList.remove("off");
         soundOn = true;
     }
 };
@@ -856,32 +857,28 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "setVolume", ()=>setVolume);
 var _constants = require("./constants");
-let firstPlay = (0, _constants.boardState).firstPlay;
-// volume adjustment to make fireAudio louder
-const adjustCountForVolume = (count)=>{
-    if (count === 0) return count;
-    else return count += 70;
+/* SCROLL TO BOTTOM */ const getVolumeNature = (volumeFire)=>{
+    let volumeNature;
+    if ((0, _constants.boardState).hasPlayed) {
+        (0, _constants.boardState).hasPlayed = !!(0, _constants.boardState).hasPlayed;
+        volumeNature = 0.5;
+    } else volumeNature = 1 - volumeFire;
+    return volumeNature;
 };
-// count dead cells
-const countDeadCells = ()=>{
-    let deadCells = 0;
-    let cells = (0, _constants.boardState).cells;
-    for(var cell in cells)if (cells[cell] === "dead") deadCells++;
-    return adjustCountForVolume(deadCells);
-};
-// adjust for first play
-const firstPlayAdjust = (fireVolume)=>{
-    if (!firstPlay) {
-        firstPlay = true;
-        return 0.5;
-    } else return 1 - fireVolume;
+const getVolumeFire = ()=>{
+    let volumeFire;
+    const numTotalCells = Object.keys((0, _constants.boardState).cells).length;
+    const numDeadCells = Object.values((0, _constants.boardState).cells).filter((cell)=>cell === "dead").length;
+    console.log(numDeadCells);
+    volumeFire === 0 || numDeadCells;
+    return volumeFire / numTotalCells;
 };
 const setVolume = ()=>{
-    const totalCells = (0, _constants.boardState).width * (0, _constants.boardState).height;
-    let deadCells = countDeadCells();
-    let fireVolume = deadCells / totalCells;
-    (0, _constants.fireAudio).volume = fireVolume;
-    (0, _constants.audio).volume = firstPlayAdjust(fireVolume);
+    const volumeFire = getVolumeFire();
+    console.log(volumeFire);
+    const volumeNature = getVolumeNature(volumeFire);
+    (0, _constants.audioFire).volume = volumeFire;
+    (0, _constants.audioNature).volume = volumeNature;
 };
 
 },{"./constants":"e0Zqh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["jC2qd","8lqZg"], "8lqZg", "parcelRequiref626")
