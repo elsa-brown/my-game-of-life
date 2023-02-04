@@ -1,5 +1,5 @@
 import { blooms, boardState } from './constants';
-import { setVolume } from './soundUtils';
+import { setVolume } from './audioUtils';
 
 // Get individual cell from document
 const getCell = (row, col) => {
