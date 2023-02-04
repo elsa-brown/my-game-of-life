@@ -22,26 +22,20 @@ const getVolumeFire = () => {
 	let volumeFire;
 
 	const numTotalCells = Object.keys(boardState.cells).length;
-	console.log('total: ', numTotalCells)
 	const numDeadCells = Object.values(boardState.cells).filter(
 		cell => cell === 'dead'
 	).length;
-	const numDeadCellsAdjusted = numDeadCells + 70;                   
-	console.log('adjusted: ', numDeadCellsAdjusted)
-	console.log(numDeadCellsAdjusted / numTotalCells)
+	const numDeadCellsAdjusted = numDeadCells + 70;
 	
-		
 	volumeFire = !volumeFire ? 
 		0 : 
 		numDeadCellsAdjusted / numTotalCells;
-	console.log('volumeFire: ', volumeFire)
 
 	return volumeFire;
 }
 
 export const setVolume = () => {
 	const volumeFire = getVolumeFire()
-	console.log(volumeFire)
 	const volumeNature = getVolumeNature(volumeFire)
 
 	audioFire.volume = volumeFire;

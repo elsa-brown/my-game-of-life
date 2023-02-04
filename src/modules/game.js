@@ -85,7 +85,7 @@ export const setNextState = (nextBoardState) => {
 			}
 		}
 	}
-	console.log('setting')
+
 	setVolume()
 };
 

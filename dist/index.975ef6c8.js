@@ -635,10 +635,10 @@ const boardState = {
     interval: null,
     cells: {},
     playing: false,
-    firstPlay: false
+    hasPlayed: false
 };
 
-},{"../images/bloom-1-1x.gif":"9F8ZI","../images/bloom-2-1x.gif":"8ugN4","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../images/bloom-3-1x.gif":"7oCXt","../images/bloom-4-1x.gif":"fMaee","../images/bloom-5-72px.gif":"5P0hS"}],"9F8ZI":[function(require,module,exports) {
+},{"../images/bloom-1-1x.gif":"9F8ZI","../images/bloom-2-1x.gif":"8ugN4","../images/bloom-3-1x.gif":"7oCXt","../images/bloom-4-1x.gif":"fMaee","../images/bloom-5-72px.gif":"5P0hS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"9F8ZI":[function(require,module,exports) {
 module.exports = require("4988ff20c5d160e4").getBundleURL("bLxZJ") + "bloom-1-1x.0b776264.gif" + "?" + Date.now();
 
 },{"4988ff20c5d160e4":"lgJ39"}],"lgJ39":[function(require,module,exports) {
@@ -678,7 +678,16 @@ exports.getOrigin = getOrigin;
 },{}],"8ugN4":[function(require,module,exports) {
 module.exports = require("253371f0b61631ec").getBundleURL("bLxZJ") + "bloom-2-1x.89ff1566.gif" + "?" + Date.now();
 
-},{"253371f0b61631ec":"lgJ39"}],"gkKU3":[function(require,module,exports) {
+},{"253371f0b61631ec":"lgJ39"}],"7oCXt":[function(require,module,exports) {
+module.exports = require("d7c3ebed3289fef9").getBundleURL("bLxZJ") + "bloom-3-1x.4e6f08a7.gif" + "?" + Date.now();
+
+},{"d7c3ebed3289fef9":"lgJ39"}],"fMaee":[function(require,module,exports) {
+module.exports = require("5321a321f2186079").getBundleURL("bLxZJ") + "bloom-4-1x.9d956b3a.gif" + "?" + Date.now();
+
+},{"5321a321f2186079":"lgJ39"}],"5P0hS":[function(require,module,exports) {
+module.exports = require("3e74793eb9ae202c").getBundleURL("bLxZJ") + "bloom-5-72px.2597b025.gif" + "?" + Date.now();
+
+},{"3e74793eb9ae202c":"lgJ39"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -708,16 +717,7 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"7oCXt":[function(require,module,exports) {
-module.exports = require("d7c3ebed3289fef9").getBundleURL("bLxZJ") + "bloom-3-1x.4e6f08a7.gif" + "?" + Date.now();
-
-},{"d7c3ebed3289fef9":"lgJ39"}],"fMaee":[function(require,module,exports) {
-module.exports = require("5321a321f2186079").getBundleURL("bLxZJ") + "bloom-4-1x.9d956b3a.gif" + "?" + Date.now();
-
-},{"5321a321f2186079":"lgJ39"}],"5P0hS":[function(require,module,exports) {
-module.exports = require("3e74793eb9ae202c").getBundleURL("bLxZJ") + "bloom-5-72px.2597b025.gif" + "?" + Date.now();
-
-},{"3e74793eb9ae202c":"lgJ39"}],"cw0Bk":[function(require,module,exports) {
+},{}],"cw0Bk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "togglePlay", ()=>togglePlay);
@@ -778,7 +778,7 @@ parcelHelpers.export(exports, "forEachCell", ()=>forEachCell);
 parcelHelpers.export(exports, "setNextState", ()=>setNextState);
 parcelHelpers.export(exports, "step", ()=>step);
 var _constants = require("./constants");
-var _soundUtils = require("./soundUtils");
+var _audioUtils = require("./audioUtils");
 // Get individual cell from document
 const getCell = (row, col)=>{
     let theCell = document.getElementById(`${col}-${row}`);
@@ -842,7 +842,7 @@ const setNextState = (nextBoardState)=>{
         cell.className = nextCellState;
         if (cell.className === "alive") cell.querySelector("img").src = getBloom();
     }
-    (0, _soundUtils.setVolume)();
+    (0, _audioUtils.setVolume)();
 };
 const step = ()=>{
     let nextBoardState = Object.assign({}, (0, _constants.boardState).cells);
@@ -852,7 +852,7 @@ const step = ()=>{
     setNextState(nextBoardState);
 };
 
-},{"./constants":"e0Zqh","./soundUtils":"7lXCJ","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7lXCJ":[function(require,module,exports) {
+},{"./constants":"e0Zqh","./audioUtils":"dVQ2D","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dVQ2D":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "setVolume", ()=>setVolume);
@@ -869,13 +869,12 @@ const getVolumeFire = ()=>{
     let volumeFire;
     const numTotalCells = Object.keys((0, _constants.boardState).cells).length;
     const numDeadCells = Object.values((0, _constants.boardState).cells).filter((cell)=>cell === "dead").length;
-    console.log(numDeadCells);
-    volumeFire === 0 || numDeadCells;
-    return volumeFire / numTotalCells;
+    const numDeadCellsAdjusted = numDeadCells + 70;
+    volumeFire = !volumeFire ? 0 : numDeadCellsAdjusted / numTotalCells;
+    return volumeFire;
 };
 const setVolume = ()=>{
     const volumeFire = getVolumeFire();
-    console.log(volumeFire);
     const volumeNature = getVolumeNature(volumeFire);
     (0, _constants.audioFire).volume = volumeFire;
     (0, _constants.audioNature).volume = volumeNature;
