@@ -6,13 +6,13 @@ const getVolumeNature = (volumeFire) => {
 	
 	let volumeNature;
 
-	if (boardState.hasPlayed) {
-		boardState.hasPlayed = !!boardState.hasPlayed
+	// if (boardState.hasPlayed) {
+	// 	boardState.hasPlayed = !!boardState.hasPlayed // false
 
-		volumeNature = 0.5
-	} else {
+	// 	volumeNature = 0.5
+	// } else {
 		volumeNature = 1 - volumeFire;
-	}
+	// }
 	
 	return volumeNature;
 }
@@ -25,18 +25,20 @@ const getVolumeFire = () => {
 	const numDeadCells = Object.values(boardState.cells).filter(
 		cell => cell === 'dead'
 	).length;
+	
 	const numDeadCellsAdjusted = numDeadCells + 70;
 	
-	volumeFire = !volumeFire ? 
-		0 : 
-		numDeadCellsAdjusted / numTotalCells;
+	volumeFire = numDeadCells ? 
+		numDeadCellsAdjusted / numTotalCells :
+		0;
 
 	return volumeFire;
 }
 
 export const setVolume = () => {
-	const volumeFire = getVolumeFire()
-	const volumeNature = getVolumeNature(volumeFire)
+	const volumeFire = getVolumeFire();
+	console.log('volumeFIre: ', volumeFire);
+	const volumeNature = getVolumeNature(volumeFire);
 
 	audioFire.volume = volumeFire;
 	audioNature.volume = volumeNature;

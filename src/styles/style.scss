@@ -1,6 +1,10 @@
 @use 'normalize.scss';
 @use 'system' as *;
 
+* {
+  box-sizing: border-box;
+}
+
 a {
   min-height: 48px;
   min-width: 48px;
@@ -14,10 +18,18 @@ a {
 }
 
 body {
+  height: 100vh;
   padding: $s2;
   background-image: url(../images/pond.gif);
   background-size: cover;
   font-family: 'Bellefair', serif;
+  overflow: hidden;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
+  column-gap: 4rem;
 }
 
 button {
@@ -50,7 +62,6 @@ h1 {
 }
 
 header {
-  position: absolute;
   width: $s5;
 
   & > a {
@@ -63,11 +74,56 @@ header {
   }
 }
 
+main {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+}
+
 .controls {
   display: flex;
   flex-direction: column;
   margin-bottom: $s1;
 }
+
+/* board */
+
+.board-container {
+  border-radius: 800px;
+  background-image: url(../images/pond-square.gif);
+  background-size: cover;
+  scale: 1.05;
+  box-shadow: inset -1rem -1rem 2rem rgb(10 10 10 / 30%);
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  scale: 0.95238;
+
+  .row {
+    display: flex;
+  }
+
+  div:not(.row) {
+    width: 32px;
+    height: 32px;
+    border: solid 2px transparent;
+    background-size: 100%;
+    animation: fadeIn 2.1s ease-in;
+
+    &.has-died {
+      opacity: 0.5;
+    }
+
+  }
+
+  img {
+    width: 28;
+  }
+}
+
 
 .table {
   width: 682px;
@@ -117,38 +173,18 @@ header {
   color: transparent;
 }
 
-/* table */
-
-td {
-  width: 32px;
-  height: 32px;
-  border: none;
-}
-
-/* cell state styling */
-
-td.dormant {
-	background-image: none;
-}
-
-td.alive {
-  background-size: 100%;
-}
-
-td > img {
-  width: 32;
-}
-
-td.dead {
-  background-image: url(../images/fire.gif);
-  background-size: 100%;
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 2.1s;
-}
-
 /* animations */
 
-@-webkit-keyframes fadebloom {
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadebloom {
   from {
     opacity: 0;
   }

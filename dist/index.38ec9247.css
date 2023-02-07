@@ -152,6 +152,10 @@ template, [hidden] {
   display: none;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 a {
   min-height: 48px;
   min-width: 48px;
@@ -166,10 +170,18 @@ a:hover {
 }
 
 body {
+  height: 100vh;
   background-image: url("pond.2978a232.gif");
   background-size: cover;
   padding: 2rem;
   font-family: Bellefair, serif;
+  overflow: hidden;
+}
+
+.layout {
+  grid-template-columns: 1fr 10fr 1fr;
+  column-gap: 4rem;
+  display: grid;
 }
 
 button {
@@ -206,7 +218,6 @@ h1 a:hover {
 
 header {
   width: 4rem;
-  position: absolute;
 }
 
 header > a {
@@ -218,10 +229,51 @@ header > a {
   display: flex;
 }
 
+main {
+  width: 100%;
+  justify-content: center;
+  padding: 1rem;
+  display: flex;
+}
+
 .controls {
   flex-direction: column;
   margin-bottom: 1.5rem;
   display: flex;
+}
+
+.board-container {
+  background-image: url("pond-square.1d383567.gif");
+  background-size: cover;
+  border-radius: 800px;
+  scale: 1.05;
+  box-shadow: inset -1rem -1rem 2rem #0a0a0a4d;
+}
+
+.board {
+  flex-direction: column;
+  display: flex;
+  scale: .95238;
+}
+
+.board .row {
+  display: flex;
+}
+
+.board div:not(.row) {
+  width: 32px;
+  height: 32px;
+  background-size: 100%;
+  border: 2px solid #0000;
+  animation: 2.1s ease-in fadeIn;
+}
+
+.board div:not(.row).has-died {
+  opacity: .5;
+}
+
+.board img {
+  width: 28px;
 }
 
 .table {
@@ -260,32 +312,17 @@ header > a {
   color: #0000;
 }
 
-td {
-  width: 32px;
-  height: 32px;
-  border: none;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
-td.dormant {
-  background-image: none;
-}
-
-td.alive {
-  background-size: 100%;
-}
-
-td > img {
-  width: 32px;
-}
-
-td.dead {
-  background-image: url("fire.064decae.gif");
-  background-size: 100%;
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 2.1s;
-}
-
-@-webkit-keyframes fadebloom {
+@keyframes fadebloom {
   from {
     opacity: 0;
   }

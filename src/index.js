@@ -1,39 +1,41 @@
-import { main, audioNature, audioFire, playButton, clearButton, soundButton, boardState } from './modules/constants';
+import { audioNature, audioFire, playButton, clearButton, soundButton, boardState } from './modules/constants';
 import { togglePlay, clearBoard, toggleSound } from './modules/eventHandlers.js'
 
-// -- Buttons --
 const initButtons = () => {
 	playButton.addEventListener('click', () => togglePlay());
 	clearButton.addEventListener('click', () => clearBoard());
 	soundButton.addEventListener('click', () => toggleSound());
-}
+};
 
 const initAudio = () => {
 	audioNature.volume = 0.3;
 	audioFire.volume = 0;
-}
+};
 
-// -- Initital Board Set-Up --
-const createAndShowBoard = () => {
-	const board = document.createElement('tbody');
-	main.appendChild(board);
+const initBoard = () => {
+	const board = document.getElementById('board');
 
-	for (let i = 0; i < boardState.width; i++) {
-		let row = document.createElement('tr');
+	for (let x = 0; x < boardState.width; x++) {
+		const row = document.createElement('div');
+		row.className = 'row';
+		row.id = x;
 		board.appendChild(row);
 
-		for (let j = 0; j < boardState.height; j++) {
-			boardState.cells[`${i}-${j}`] = 'dormant'
-			let cell = document.createElement('td');
-			let img = document.createElement('img');
-			cell.id = `${i}-${j}`
-			cell.className = 'dormant'
-			cell.appendChild(img);
+		for (let y = 0; y < boardState.height; y++) {
+			const cellId = `${x}-${y}`;
+			boardState.cells[cellId] = 'dormant';
+
+			const cell = document.createElement('div');
+			cell.id = cellId;
+			cell.classList.add('dormant');
 			row.appendChild(cell);
+
+			const img = document.createElement('img');
+			cell.appendChild(img);
 		}
-	}	
+	}
 }
 
 initButtons();
 initAudio();
-createAndShowBoard();
+initBoard();

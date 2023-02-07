@@ -3,16 +3,20 @@ import bloom2 from '../images/bloom-2-1x.gif';
 import bloom3 from '../images/bloom-3-1x.gif';
 import bloom4 from '../images/bloom-4-1x.gif';
 import bloom5 from '../images/bloom-5-72px.gif';
+import fire from '../images/fire-1x.gif';
 
 // -- Interval --
 export const intervalMs = 4000;
 
 // -- Cell Background Images --
-export const blooms = [bloom1, bloom2, bloom3, bloom4, bloom5];
+export const fire = fire;
+const blooms = [bloom1, bloom2, bloom3, bloom4, bloom5];
+export const getBloom = () => {
+	let idx = Math.floor(Math.random() * 5);
+	return blooms[idx];
+}
 
-// -- DOM Elements --
-export const main = document.getElementById('main');
-export const canvas = document.getElementById('canvas');
+// -- Audio Players --
 export const audioNature = document.getElementById('audioPlayer');
 export const audioFire = document.getElementById('fireAudioPlayer');
 
@@ -30,3 +34,13 @@ export const boardState = {
 	playing: false,
 	hasPlayed: false
 };
+
+/*
+gameState =  {
+	dimension: 18,
+	intervals: null,
+	cells: {},
+	playing: false,
+	hasPlayed: false,	
+}
+*/

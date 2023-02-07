@@ -4,14 +4,24 @@ import { forEachCell, setNextState, step } from './game';
 // Start game play
 export const togglePlay = () => {
 	if (!boardState.playing) {
-		let nextBoardState = Object.assign({}, boardState.cells)
+		const nextBoardState = {...boardState.cells};
+		// console.log('FIRST: ', boardState.cells);
 
-		forEachCell((cell, row, col) => {
-			if (Math.floor((row + col) * Math.random()) % 5 === 0) {
-				nextBoardState[`${col}-${row}`] = 'alive'
+		for (const cellId in nextBoardState) {
+			const coords = cellId.split('-');
+			const x = +coords[0];
+			const y = +coords[1];
+
+			// const lifeForce = ['3-4', '4-5', '5-5', '5-4', '5-3']
+
+			const lifeForce = Math.floor((x + y) * Math.random()) % 3 === 0;
+			// console.log(lifeForce)
+			if (lifeForce) {
+				nextBoardState[cellId] = 'alive';
 			}
-		})
-		setNextState(nextBoardState)
+		}
+
+		setNextState(nextBoardState);
 
 		playButton.innerHTML = 'Pause'
 		boardState.playing = true;
@@ -39,7 +49,7 @@ export const clearBoard = () => {
 	boardState.playing = false;
 	playButton.innerHTML = 'Play'
 
-	audioNature.volume = 0.3;
+	audioNature.volume = 0.05;
 	boardState.firstPlay = false;
 };
 
