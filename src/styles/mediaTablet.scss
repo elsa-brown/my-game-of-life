@@ -1,0 +1,12 @@
+@use 'system' as *;
+
+@media screen and (max-width: $breakpoint-md) {
+  button:hover {
+    opacity: 1;
+  }
+
+  .board div:not(.row) {
+    width: 28px;
+    height: 28px;
+  }
+}

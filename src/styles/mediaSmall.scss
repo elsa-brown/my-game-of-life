@@ -1,0 +1,73 @@
+@use 'system' as *;
+
+@media screen and (max-width: $breakpoint-sm) {
+  a:hover {
+    color: #fff;
+    border: none;
+    text-decoration: none;
+  }
+
+  body {
+    padding: $s-1;
+  }
+
+  button {
+    padding: $s-2;
+    margin: 0;
+    width: calc(100vw / 3 - 32px);
+    height: 38px;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  h1 {
+    margin: 0;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: unset;
+    width: 100%;
+
+      & > a {
+        width: auto;
+      }
+
+    &.mobile {
+      display: none;
+    }
+  }
+
+  main {
+    height: 72%;
+  }
+
+  .controls {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    bottom: $s0;
+    width: 100%;
+    margin: 0 0 0 -0.75rem;
+    padding: 0 $s0;
+
+    #play {
+      order: 2;
+    }
+
+    #sound {
+      order: 3;
+    }
+  }
+
+  .board {
+      div:not(.row) {
+        height: 32px;
+        width: 32px;
+      }
+  }
+}

@@ -1,5 +1,3 @@
 node_modules
-public/bundle.js
-public/bundle.js.map
-yarn.lock
-firebase.json
+.parcel-cache
+_assets

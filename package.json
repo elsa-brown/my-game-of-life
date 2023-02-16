@@ -1,16 +1,10 @@
 {
   "name": "game-of-life",
-  "version": "1.0.0",
-  "description": "my game of life",
-  "main": "./server/index.js",
-  "engines": {
-    "node": "8.2.1",
-    "npm": "5.2.0"
-  },
+  "version": "2.0.0",
+  "description": "game of life with gifs and audio",
   "scripts": {
-    "build": "webpack --config webpack.dist.config.js",
-    "build-watch": "npm run build -- -w",
-    "start": "node ./server/index.js"
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html"
   },
   "repository": {
     "type": "git",
@@ -22,12 +16,8 @@
     "url": "https://github.com/elsa-brown/my-game-of-life/issues"
   },
   "homepage": "https://github.com/elsa-brown/my-game-of-life#readme",
-  "dependencies": {
-    "babel-core": "^6.25.0",
-    "babel-loader": "^7.1.0",
-    "body-parser": "^1.17.2",
-    "express": "^4.15.3",
-    "node": "^8.2.1",
-    "webpack": "^2.6.0"
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.8.3",
+    "parcel": "^2.8.3"
   }
 }

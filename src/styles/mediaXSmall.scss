@@ -1,0 +1,14 @@
+@use 'system' as *;
+
+@media screen and (max-width: $breakpoint-xs) {
+  main {
+    height: 68%;
+  }
+
+  .board {
+      div:not(.row) {
+        height: 32px;
+        width: 32px;
+      }
+  }
+}
