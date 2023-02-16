@@ -13,6 +13,15 @@
   }
 }
 
+@keyframes fadeInFire {
+  from {
+    opacity: 0.1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @keyframes fadeOut {
   from {
     opacity: 1;

@@ -150,8 +150,8 @@ main {
   opacity: 0;
 
   &.dying {
+    animation: 1.1s linear fadeInFire;
     opacity: 1;
-    animation: 2.2s ease-in fadeIn;
   }
 
   &.gone {
