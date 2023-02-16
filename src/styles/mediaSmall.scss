@@ -42,7 +42,7 @@
   }
 
   main {
-    height: 82%;
+    height: 72%;
   }
 
   .controls {
@@ -66,8 +66,8 @@
 
   .board {
       div:not(.row) {
-        height: 24px;
-        width: 24px;
+        height: 32px;
+        width: 32px;
       }
   }
 }

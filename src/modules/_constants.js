@@ -21,7 +21,7 @@ export const audio = {
 
 // -- Board State --
 export const boardState = {
-	dimension: 18,
+	dimension: window.innerWidth > 414 ? 18 : 12,
 	interval: null,
 	cells: {},
 	playing: false,

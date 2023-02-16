@@ -23,6 +23,7 @@ const initButtons = () => {
 };
 
 const initBoard = () => {
+	console.log('boardState: ', boardState)
 	const board = document.getElementById('board');
 
 	for (let x = 0; x < boardState.dimension; x++) {
@@ -41,12 +42,17 @@ const initBoard = () => {
 			row.appendChild(cell);
 		}
 	}
+};
 
-	window.addEventListener("unhandledrejection", (event) => {
-		console.log(event.reason);
-	});
+const initLife = () => {
+	initAudio();
+	initButtons();
+	initBoard();
+};
+
+/* START */
+if (document.readyState === 'loading') {
+	document.onDOMContentLoaded = () => initLife();
+} else {
+	initLife();
 }
-
-initAudio();
-initButtons();
-initBoard();
