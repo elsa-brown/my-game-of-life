@@ -1,6 +1,12 @@
 @use 'system' as *;
 
 @media screen and (max-width: $breakpoint-sm) {
+  a:hover {
+    color: #fff;
+    border: none;
+    text-decoration: none;
+  }
+
   body {
     padding: $s-1;
   }
