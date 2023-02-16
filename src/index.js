@@ -1,15 +1,25 @@
-import { audioNature, audioFire, defaultVolNature, playButton, clearButton, soundButton, boardState } from './modules/constants';
-import { togglePlay, clearBoard, toggleSound } from './modules/eventHandlers.js'
+import { 
+	audio,
+	defaultVolNature, 
+	buttons, 
+	boardState 
+} from './modules/_constants';
 
-const initButtons = () => {
-	playButton.addEventListener('click', () => togglePlay());
-	clearButton.addEventListener('click', () => clearBoard());
-	soundButton.addEventListener('click', () => toggleSound());
-};
+import { 
+	togglePlay, 
+	clearBoard, 
+	toggleSound 
+	} from './modules/eventHandlers.js'
 
 const initAudio = () => {
-	audioNature.volume = defaultVolNature;
-	audioFire.volume = 0;
+	audio.nature.volume = defaultVolNature;
+	audio.fire.volume = 0;
+};
+
+const initButtons = () => {
+	buttons.play.addEventListener('click', () => togglePlay());
+	buttons.clear.addEventListener('click', () => clearBoard());
+	buttons.sound.addEventListener('click', () => toggleSound());
 };
 
 const initBoard = () => {
@@ -31,8 +41,12 @@ const initBoard = () => {
 			row.appendChild(cell);
 		}
 	}
+
+	window.addEventListener("unhandledrejection", (event) => {
+		console.log(event.reason);
+	});
 }
 
+initAudio();
 initButtons();
- 
 initBoard();

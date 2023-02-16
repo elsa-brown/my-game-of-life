@@ -557,16 +557,16 @@ function hmrAccept(bundle, id) {
 }
 
 },{}],"8lqZg":[function(require,module,exports) {
-var _constants = require("./modules/constants");
+var _constants = require("./modules/_constants");
 var _eventHandlersJs = require("./modules/eventHandlers.js");
-const initButtons = ()=>{
-    (0, _constants.playButton).addEventListener("click", ()=>(0, _eventHandlersJs.togglePlay)());
-    (0, _constants.clearButton).addEventListener("click", ()=>(0, _eventHandlersJs.clearBoard)());
-    (0, _constants.soundButton).addEventListener("click", ()=>(0, _eventHandlersJs.toggleSound)());
-};
 const initAudio = ()=>{
-    (0, _constants.audioNature).volume = (0, _constants.defaultVolNature);
-    (0, _constants.audioFire).volume = 0;
+    (0, _constants.audio).nature.volume = (0, _constants.defaultVolNature);
+    (0, _constants.audio).fire.volume = 0;
+};
+const initButtons = ()=>{
+    (0, _constants.buttons).play.addEventListener("click", ()=>(0, _eventHandlersJs.togglePlay)());
+    (0, _constants.buttons).clear.addEventListener("click", ()=>(0, _eventHandlersJs.clearBoard)());
+    (0, _constants.buttons).sound.addEventListener("click", ()=>(0, _eventHandlersJs.toggleSound)());
 };
 const initBoard = ()=>{
     const board = document.getElementById("board");
@@ -584,21 +584,22 @@ const initBoard = ()=>{
             row.appendChild(cell);
         }
     }
+    window.addEventListener("unhandledrejection", (event)=>{
+        console.log(event.reason);
+    });
 };
+initAudio();
 initButtons();
 initBoard();
 
-},{"./modules/constants":"e0Zqh","./modules/eventHandlers.js":"cw0Bk"}],"e0Zqh":[function(require,module,exports) {
+},{"./modules/_constants":"8NOsx","./modules/eventHandlers.js":"cw0Bk"}],"8NOsx":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "intervalMs", ()=>intervalMs);
 parcelHelpers.export(exports, "getBloomName", ()=>getBloomName);
-parcelHelpers.export(exports, "audioNature", ()=>audioNature);
-parcelHelpers.export(exports, "audioFire", ()=>audioFire);
+parcelHelpers.export(exports, "buttons", ()=>buttons);
 parcelHelpers.export(exports, "defaultVolNature", ()=>defaultVolNature);
-parcelHelpers.export(exports, "playButton", ()=>playButton);
-parcelHelpers.export(exports, "clearButton", ()=>clearButton);
-parcelHelpers.export(exports, "soundButton", ()=>soundButton);
+parcelHelpers.export(exports, "audio", ()=>audio);
 parcelHelpers.export(exports, "boardState", ()=>boardState);
 const intervalMs = 2200;
 const getBloomName = ()=>{
@@ -612,12 +613,16 @@ const getBloomName = ()=>{
     const idx = Math.floor(Math.random() * 6);
     return bloomNames[idx];
 };
-const audioNature = document.getElementById("audioPlayer");
-const audioFire = document.getElementById("fireAudioPlayer");
+const buttons = {
+    play: document.getElementById("play"),
+    clear: document.getElementById("clear"),
+    sound: document.getElementById("sound")
+};
 const defaultVolNature = 0.2;
-const playButton = document.getElementById("play");
-const clearButton = document.getElementById("clear");
-const soundButton = document.getElementById("sound");
+const audio = {
+    nature: document.getElementById("audioPlayer"),
+    fire: document.getElementById("fireAudioPlayer")
+};
 const boardState = {
     dimension: 18,
     interval: null,
@@ -662,7 +667,7 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "togglePlay", ()=>togglePlay);
 parcelHelpers.export(exports, "clearBoard", ()=>clearBoard);
 parcelHelpers.export(exports, "toggleSound", ()=>toggleSound);
-var _constants = require("./constants");
+var _constants = require("./_constants");
 var _game = require("./game");
 // Start/Stop Game
 const genesis = (cellId)=>{
@@ -671,7 +676,6 @@ const genesis = (cellId)=>{
     const y = +coords[1];
     const lifeForce = Math.floor((x + y) * Math.random()) % 4 === 0;
     return lifeForce ? "alive" : "dormant";
-// if (lifeForce) { nextBoardState[cellId] = 'alive'; }
 };
 const togglePlay = ()=>{
     if (!(0, _constants.boardState).playing) {
@@ -681,13 +685,13 @@ const togglePlay = ()=>{
         for(const cellId in nextBoardState)if ((0, _constants.boardState).isClear) nextBoardState[cellId] = genesis(cellId);
         else nextBoardState[cellId] = (0, _game.getCellNextState)(cellId);
         (0, _game.setNextState)(nextBoardState);
-        (0, _constants.playButton).innerHTML = "Pause";
+        (0, _constants.buttons).play.innerHTML = "Pause";
         (0, _constants.boardState).playing = true;
         (0, _constants.boardState).isClear = false;
         (0, _constants.boardState).interval = setInterval((0, _game.step), (0, _constants.intervalMs));
     } else {
         clearInterval((0, _constants.boardState).interval);
-        (0, _constants.playButton).innerHTML = "Play";
+        (0, _constants.buttons).play.innerHTML = "Play";
         (0, _constants.boardState).playing = false;
         (0, _constants.boardState).interval = null;
     }
@@ -699,38 +703,38 @@ const clearBoard = ()=>{
     for(const cellId in nextBoardState)nextBoardState[cellId] = "dormant";
     (0, _game.setNextState)(nextBoardState);
     clearInterval((0, _constants.boardState).interval);
-    (0, _constants.audioNature).volume = (0, _constants.defaultVolNature);
-    (0, _constants.audioFire).volume = 0;
-    (0, _constants.playButton).innerHTML = "Play";
+    (0, _constants.audio).nature.volume = (0, _constants.defaultVolNature);
+    (0, _constants.audio).fire.volume = 0;
+    (0, _constants.buttons).play.innerHTML = "Play";
     (0, _constants.boardState).playing = false;
     (0, _constants.boardState).isClear = true;
     (0, _constants.boardState).interval = null;
 };
 // Toggle Audio
 let soundOn = false;
-const toggleSound = (evt)=>{
+const toggleSound = ()=>{
     if (soundOn) {
-        (0, _constants.audioNature).pause();
-        (0, _constants.audioFire).pause();
-        (0, _constants.soundButton).classList.add("off");
-        (0, _constants.soundButton).setAttribute("aria-label", "sound on");
+        (0, _constants.audio).nature.pause();
+        (0, _constants.audio).fire.pause();
+        (0, _constants.buttons).sound.classList.add("off");
+        (0, _constants.buttons).sound.setAttribute("aria-label", "sound on");
         soundOn = false;
     } else {
-        (0, _constants.audioNature).play();
-        (0, _constants.audioFire).play();
-        (0, _constants.soundButton).classList.remove("off");
-        (0, _constants.soundButton).setAttribute("aria-label", "sound off");
+        (0, _constants.audio).nature.play();
+        (0, _constants.audio).fire.play();
+        (0, _constants.buttons).sound.classList.remove("off");
+        (0, _constants.buttons).sound.setAttribute("aria-label", "sound off");
         soundOn = true;
     }
 };
 
-},{"./constants":"e0Zqh","./game":"cyx8j","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cyx8j":[function(require,module,exports) {
+},{"./_constants":"8NOsx","./game":"cyx8j","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cyx8j":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "setNextState", ()=>setNextState);
 parcelHelpers.export(exports, "getCellNextState", ()=>getCellNextState);
 parcelHelpers.export(exports, "step", ()=>step);
-var _constants = require("./constants");
+var _constants = require("./_constants");
 var _audioUtils = require("./audioUtils");
 const setNextState = (nextBoardState)=>{
     let deadCount = 0;
@@ -797,11 +801,11 @@ const step = ()=>{
     setNextState(boardNextState);
 };
 
-},{"./constants":"e0Zqh","./audioUtils":"dVQ2D","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dVQ2D":[function(require,module,exports) {
+},{"./_constants":"8NOsx","./audioUtils":"dVQ2D","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dVQ2D":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "setVolume", ()=>setVolume);
-var _constants = require("./constants");
+var _constants = require("./_constants");
 const maxVol = 0.6;
 const getVolumeNature = (volumeFire)=>{
     return volumeFire ? maxVol - volumeFire + (0, _constants.defaultVolNature) : (0, _constants.defaultVolNature) * 2;
@@ -816,10 +820,10 @@ const getVolumeFire = (deadCount)=>{
 const setVolume = (deadCount)=>{
     const volumeFire = getVolumeFire(deadCount);
     const volumeNature = getVolumeNature(volumeFire);
-    (0, _constants.audioFire).volume = volumeFire;
-    (0, _constants.audioNature).volume = volumeNature;
+    (0, _constants.audio).fire.volume = volumeFire;
+    (0, _constants.audio).nature.volume = volumeNature;
 };
 
-},{"./constants":"e0Zqh","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["jC2qd","8lqZg"], "8lqZg", "parcelRequiref626")
+},{"./_constants":"8NOsx","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["jC2qd","8lqZg"], "8lqZg", "parcelRequiref626")
 
 //# sourceMappingURL=index.975ef6c8.js.map

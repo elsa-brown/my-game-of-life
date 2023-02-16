@@ -1,4 +1,4 @@
-import { boardState, fire, getBloom, getBloomName } from './constants';
+import { boardState, getBloomName } from './_constants';
 import { setVolume } from './audioUtils';
 
 // Set next state for the entire board

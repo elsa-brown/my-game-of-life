@@ -1,4 +1,4 @@
-import { audioNature, audioFire, defaultVolNature, boardState } from './constants';
+import { audio, defaultVolNature, boardState } from './_constants';
 
 const maxVol = 0.6;
 
@@ -22,6 +22,6 @@ export const setVolume = (deadCount) => {
 	const volumeFire = getVolumeFire(deadCount);
 	const volumeNature = getVolumeNature(volumeFire);
 
-	audioFire.volume = volumeFire;
-	audioNature.volume = volumeNature;
+	audio.fire.volume = volumeFire;
+	audio.nature.volume = volumeNature;
 }

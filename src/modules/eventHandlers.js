@@ -1,5 +1,5 @@
-import { audioNature, audioFire, intervalMs,  playButton, soundButton, boardState, defaultVolNature } from './constants';
-import { forEachCell, getCellNextState, setNextState, step } from './game';
+import { audio, defaultVolNature, intervalMs, buttons, boardState } from './_constants';
+import { getCellNextState, setNextState, step } from './game';
 
 // Start/Stop Game
 const genesis = (cellId) => {
@@ -9,7 +9,6 @@ const genesis = (cellId) => {
 
 	const lifeForce = Math.floor((x + y) * Math.random()) % 4 === 0;
 	return lifeForce ? 'alive' : 'dormant';
-	// if (lifeForce) { nextBoardState[cellId] = 'alive'; }
 };
 
 export const togglePlay = () => {
@@ -27,7 +26,7 @@ export const togglePlay = () => {
 
 		setNextState(nextBoardState);
 
-		playButton.innerHTML = 'Pause';
+		buttons.play.innerHTML = 'Pause';
 		boardState.playing = true;
 		boardState.isClear = false;
 		boardState.interval = setInterval(step, intervalMs);
@@ -35,7 +34,7 @@ export const togglePlay = () => {
 	} else {
 		clearInterval(boardState.interval);
 		
-		playButton.innerHTML = 'Play' ;
+		buttons.play.innerHTML = 'Play' ;
 		boardState.playing = false;
 		boardState.interval = null;
 	}
@@ -51,10 +50,10 @@ export const clearBoard = () => {
 	setNextState(nextBoardState);
 	clearInterval(boardState.interval);
 
-	audioNature.volume = defaultVolNature;
-	audioFire.volume = 0;
+	audio.nature.volume = defaultVolNature;
+	audio.fire.volume = 0;
 
-	playButton.innerHTML = 'Play';
+	buttons.play.innerHTML = 'Play';
 	boardState.playing = false;
 	boardState.isClear = true;
 	boardState.interval = null;
@@ -62,18 +61,18 @@ export const clearBoard = () => {
 
 // Toggle Audio
 let soundOn = false;
-export const toggleSound = (evt) => {
+export const toggleSound = () => {
 	if (soundOn) {
-		audioNature.pause();
-		audioFire.pause();
-		soundButton.classList.add('off');
-		soundButton.setAttribute('aria-label', 'sound on');
+		audio.nature.pause();
+		audio.fire.pause();
+		buttons.sound.classList.add('off');
+		buttons.sound.setAttribute('aria-label', 'sound on');
 		soundOn = false;
 	} else {
-		audioNature.play();
-		audioFire.play();
-		soundButton.classList.remove('off');
-		soundButton.setAttribute('aria-label', 'sound off');
+		audio.nature.play();
+		audio.fire.play();
+		buttons.sound.classList.remove('off');
+		buttons.sound.setAttribute('aria-label', 'sound off');
 		soundOn = true;
 	}
 };
