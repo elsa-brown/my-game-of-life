@@ -1,4 +1,4 @@
-import { audioNature, audioFire, playButton, clearButton, soundButton, boardState } from './modules/constants';
+import { audioNature, audioFire, defaultVolNature, playButton, clearButton, soundButton, boardState } from './modules/constants';
 import { togglePlay, clearBoard, toggleSound } from './modules/eventHandlers.js'
 
 const initButtons = () => {
@@ -8,20 +8,20 @@ const initButtons = () => {
 };
 
 const initAudio = () => {
-	audioNature.volume = 0.3;
+	audioNature.volume = defaultVolNature;
 	audioFire.volume = 0;
 };
 
 const initBoard = () => {
 	const board = document.getElementById('board');
 
-	for (let x = 0; x < boardState.width; x++) {
+	for (let x = 0; x < boardState.dimension; x++) {
 		const row = document.createElement('div');
 		row.className = 'row';
 		row.id = x;
 		board.appendChild(row);
 
-		for (let y = 0; y < boardState.height; y++) {
+		for (let y = 0; y < boardState.dimension; y++) {
 			const cellId = `${x}-${y}`;
 			boardState.cells[cellId] = 'dormant';
 
@@ -29,13 +29,10 @@ const initBoard = () => {
 			cell.id = cellId;
 			cell.classList.add('dormant');
 			row.appendChild(cell);
-
-			const img = document.createElement('img');
-			cell.appendChild(img);
 		}
 	}
 }
 
 initButtons();
-initAudio();
+ 
 initBoard();

@@ -167,6 +167,7 @@ a {
 a:hover {
   color: #00f;
   border: 2px solid #00f;
+  border-radius: 2px;
 }
 
 body {
@@ -176,12 +177,6 @@ body {
   padding: 2rem;
   font-family: Bellefair, serif;
   overflow: hidden;
-}
-
-.layout {
-  grid-template-columns: 1fr 10fr 1fr;
-  column-gap: 4rem;
-  display: grid;
 }
 
 button {
@@ -218,6 +213,7 @@ h1 a:hover {
 
 header {
   width: 4rem;
+  position: absolute;
 }
 
 header > a {
@@ -229,10 +225,16 @@ header > a {
   display: flex;
 }
 
+header > a > span {
+  height: 32px;
+}
+
 main {
   width: 100%;
+  height: 100%;
   justify-content: center;
-  padding: 1rem;
+  align-items: center;
+  padding: 1rem 0;
   display: flex;
 }
 
@@ -243,6 +245,8 @@ main {
 }
 
 .board-container {
+  height: -moz-fit-content;
+  height: fit-content;
   background-image: url("pond-square.1d383567.gif");
   background-size: cover;
   border-radius: 800px;
@@ -261,19 +265,54 @@ main {
 }
 
 .board div:not(.row) {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
+  background-repeat: no-repeat;
   background-size: 100%;
-  border: 2px solid #0000;
-  animation: 2.1s ease-in fadeIn;
-}
-
-.board div:not(.row).has-died {
-  opacity: .5;
+  border: 1px solid #0000;
 }
 
 .board img {
-  width: 28px;
+  width: 32px;
+}
+
+.alive {
+  animation: 2.2s ease-in-out fadeInFire;
+}
+
+.bloom1 {
+  background-image: url("bloom-1-72px.1b53e3c6.gif");
+}
+
+.bloom2 {
+  background-image: url("bloom-2.b0bfa4cf.gif");
+}
+
+.bloom3 {
+  background-image: url("bloom-3-72px.e0581611.gif");
+}
+
+.bloom4 {
+  background-image: url("bloom-4-72px.fd3b963c.gif");
+}
+
+.bloom5 {
+  background-image: url("bloom-5-72px.2597b025.gif");
+}
+
+.dead {
+  opacity: 0;
+  background-image: url("fire-72px.522734b5.gif");
+}
+
+.dead.dying {
+  opacity: 1;
+  animation: 2.2s ease-in fadeInFire;
+}
+
+.dead.gone {
+  opacity: .05;
+  animation: 1.1s ease-in fadeOut;
 }
 
 .table {
@@ -284,10 +323,6 @@ main {
   border-radius: 800px;
   margin: 50px auto;
   position: relative;
-}
-
-#main {
-  border-radius: 800px;
 }
 
 .about {
@@ -312,7 +347,7 @@ main {
   color: #0000;
 }
 
-@keyframes fadeIn {
+@-webkit-keyframes fadeIn {
   from {
     opacity: 0;
   }
@@ -322,7 +357,35 @@ main {
   }
 }
 
-@keyframes fadebloom {
+@-webkit-keyframes fadeInFire {
+  from {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: .5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes fadeInOut {
   from {
     opacity: 0;
   }
@@ -336,29 +399,11 @@ main {
   }
 
   75% {
-    opacity: .5;
-  }
-
-  to {
-    opacity: 0;
-  }
-}
-
-@-webkit-keyframes fade {
-  from {
-    opacity: 0;
-  }
-
-  50% {
     opacity: 1;
   }
 
-  75% {
-    opacity: .5;
-  }
-
   to {
-    opacity: 0;
+    opacity: .05;
   }
 }
 

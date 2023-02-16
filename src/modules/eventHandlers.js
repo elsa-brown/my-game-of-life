@@ -1,56 +1,63 @@
-import { audioNature, audioFire, intervalMs,  playButton, soundButton, boardState } from './constants';
-import { forEachCell, setNextState, step } from './game';
+import { audioNature, audioFire, intervalMs,  playButton, soundButton, boardState, defaultVolNature } from './constants';
+import { forEachCell, getCellNextState, setNextState, step } from './game';
 
-// Start game play
+// Start/Stop Game
+const genesis = (cellId) => {
+	const coords = cellId.split('-');
+	const x = +coords[0];
+	const y = +coords[1];
+
+	const lifeForce = Math.floor((x + y) * Math.random()) % 4 === 0;
+	return lifeForce ? 'alive' : 'dormant';
+	// if (lifeForce) { nextBoardState[cellId] = 'alive'; }
+};
+
 export const togglePlay = () => {
+
 	if (!boardState.playing) {
 		const nextBoardState = {...boardState.cells};
-		// console.log('FIRST: ', boardState.cells);
 
 		for (const cellId in nextBoardState) {
-			const coords = cellId.split('-');
-			const x = +coords[0];
-			const y = +coords[1];
-
-			// const lifeForce = ['3-4', '4-5', '5-5', '5-4', '5-3']
-
-			const lifeForce = Math.floor((x + y) * Math.random()) % 3 === 0;
-			// console.log(lifeForce)
-			if (lifeForce) {
-				nextBoardState[cellId] = 'alive';
+			if (boardState.isClear) {
+				nextBoardState[cellId] = genesis(cellId);
+			} else {
+				nextBoardState[cellId] = getCellNextState(cellId);
 			}
 		}
 
 		setNextState(nextBoardState);
 
-		playButton.innerHTML = 'Pause'
+		playButton.innerHTML = 'Pause';
 		boardState.playing = true;
-		boardState.interval = setInterval(step, intervalMs)
+		boardState.isClear = false;
+		boardState.interval = setInterval(step, intervalMs);
+
 	} else {
 		clearInterval(boardState.interval);
-		boardState.interval = null;
-		playButton.innerHTML = 'Play'
+		
+		playButton.innerHTML = 'Play' ;
 		boardState.playing = false;
-
+		boardState.interval = null;
 	}
 };
 
-// Clear board
+// Clear Board
 export const clearBoard = () => {
-	let nextBoardState = Object.assign({}, boardState.cells);
-
-	forEachCell((cell, row, col) => {
-		nextBoardState[`${col}-${row}`] = 'dormant'
-	});
+	const nextBoardState = {...boardState.cells};
+	for (const cellId in nextBoardState) {
+		nextBoardState[cellId] = 'dormant';
+	}
 
 	setNextState(nextBoardState);
-	clearInterval(boardState.interval)
-	boardState.interval = null;
-	boardState.playing = false;
-	playButton.innerHTML = 'Play'
+	clearInterval(boardState.interval);
 
-	audioNature.volume = 0.05;
-	boardState.firstPlay = false;
+	audioNature.volume = defaultVolNature;
+	audioFire.volume = 0;
+
+	playButton.innerHTML = 'Play';
+	boardState.playing = false;
+	boardState.isClear = true;
+	boardState.interval = null;
 };
 
 // Toggle Audio
@@ -60,11 +67,13 @@ export const toggleSound = (evt) => {
 		audioNature.pause();
 		audioFire.pause();
 		soundButton.classList.add('off');
+		soundButton.setAttribute('aria-label', 'sound on');
 		soundOn = false;
 	} else {
 		audioNature.play();
 		audioFire.play();
-		soundButton.classList.remove('off')
+		soundButton.classList.remove('off');
+		soundButton.setAttribute('aria-label', 'sound off');
 		soundOn = true;
 	}
 };

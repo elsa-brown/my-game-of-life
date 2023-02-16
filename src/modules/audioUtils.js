@@ -1,43 +1,25 @@
-import { audioNature, audioFire, boardState } from './constants';
+import { audioNature, audioFire, defaultVolNature, boardState } from './constants';
 
-/* SCROLL TO BOTTOM */
+const maxVol = 0.6;
 
 const getVolumeNature = (volumeFire) => {
-	
-	let volumeNature;
-
-	// if (boardState.hasPlayed) {
-	// 	boardState.hasPlayed = !!boardState.hasPlayed // false
-
-	// 	volumeNature = 0.5
-	// } else {
-		volumeNature = 1 - volumeFire;
-	// }
-	
-	return volumeNature;
+	return volumeFire ? 
+		maxVol - volumeFire + defaultVolNature : 
+		defaultVolNature * 2;
 }
 
-const getVolumeFire = () => {
+const getVolumeFire = (deadCount) => {
+	if (!deadCount) return 0;
 
-	let volumeFire;
-
-	const numTotalCells = Object.keys(boardState.cells).length;
-	const numDeadCells = Object.values(boardState.cells).filter(
-		cell => cell === 'dead'
-	).length;
+	const numTotalCells = boardState.dimension * 2;
+	const deadCountAdjusted = deadCount + 100;
 	
-	const numDeadCellsAdjusted = numDeadCells + 70;
-	
-	volumeFire = numDeadCells ? 
-		numDeadCellsAdjusted / numTotalCells :
-		0;
-
-	return volumeFire;
+	const volumeFire = deadCountAdjusted ? deadCountAdjusted / numTotalCells * 0.1 : 0;
+	return volumeFire > maxVol ? maxVol : volumeFire;
 }
 
-export const setVolume = () => {
-	const volumeFire = getVolumeFire();
-	console.log('volumeFIre: ', volumeFire);
+export const setVolume = (deadCount) => {
+	const volumeFire = getVolumeFire(deadCount);
 	const volumeNature = getVolumeNature(volumeFire);
 
 	audioFire.volume = volumeFire;

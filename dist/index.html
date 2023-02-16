@@ -11,7 +11,6 @@
 	<link rel="stylesheet" href="/index.38ec9247.css">
 </head>
 <body>
-	<div class="layout">
 		<header>
 			<h1>
 				<a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="blank" rel="noopener noreferrer">Life</a>
@@ -19,7 +18,7 @@
 			<div class="controls">
 				<button id="play">Play</button>
 				<button id="clear">Clear</button>
-				<button id="sound" class="off">Sound</button>
+				<button id="sound" aria-label="sound on" class="off">Sound</button>
 			</div>
 			<a href="http://github.com/elsa-brown/my-game-of-life" target="blank" rel="noopener noreferrer"><span role="img" aria-label="globe showing asia-australia emoji">🌏</span></a>
 		</header>
@@ -27,8 +26,7 @@
 			<div class="board-container">
 				<div id="board" class="board"></div>
 			</div>
-		</main>	
-	</div>
+		</main>
 	<audio id="audioPlayer" loop="true" preload="metadata">
 		<source src="/nature.84b6b9a8.mp3" type="audio/mp3">
 	</audio>

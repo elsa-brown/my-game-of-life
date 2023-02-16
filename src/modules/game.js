@@ -1,41 +1,43 @@
-import { boardState, fire, getBloom } from './constants';
+import { boardState, fire, getBloom, getBloomName } from './constants';
 import { setVolume } from './audioUtils';
 
 // Set next state for the entire board
 export const setNextState = (nextBoardState) => {
 	let deadCount = 0;
+	let cell;
 
 	for (const cellId in nextBoardState) {
 		const currCellState = boardState.cells[cellId];
 		const nextCellState = nextBoardState[cellId];
 
-		const cell = document.getElementById(cellId);
-		cell.className = nextCellState;
+		const cellWillDie = nextCellState === 'dead';
 
-		if (nextCellState === 'alive' && currCellState === 'alive') {
-			continue;
-		} 
-		
-		if (nextCellState == 'alive') {
-				cell.querySelector('img').src = getBloom();
-		} 
-		
-		if (nextCellState === 'dead') {
-			if (currCellState !== 'dead') {
-					cell.querySelector('img').src = fire;
-					deadCount++;
-			} else {
-				// cell.style.backgroundColor = 'white';
-				// cell.querySelector('img').src = '';
-				cell.classList.add('has-died');
+		if (!cellWillDie && currCellState !== nextCellState) {
+			cell = document.getElementById(cellId);
+			cell.className = nextCellState; 
+
+			if (nextCellState === 'alive') {
+				cell.classList.add(getBloomName());
 			}
+
+		} else if (cellWillDie) {
+			cell = document.getElementById(cellId);
+			cell.className = nextCellState; 
+
+			if (currCellState === 'dead') {
+				cell.classList.remove('dying');
+				cell.classList.add('gone');
+			} else {
+				cell.classList.add('dying');
+				deadCount++;
+			}
+
 		}
 
 		boardState.cells[cellId] = nextCellState;
 	}
 
-	console.log('deadCount: ', deadCount);
-	setVolume(deadCount)
+	setVolume(deadCount);
 };
 
 const getLiveNeighbors = (neighborhood) => {
@@ -55,8 +57,8 @@ const getNeighborhood = (x, y) => {
 			const isInBounds = 
 					row >= 0 && // x
 					col >= 0 && // y
-					row < boardState.width &&
-					col < boardState.height;
+					row < boardState.dimension &&
+					col < boardState.dimension;
 
 			const isSelf = (col === x && row === y);
 
@@ -70,7 +72,7 @@ const getNeighborhood = (x, y) => {
 };
 
 // Determine next state for a single cell, based on numbr of live neighbors
-const getCellNextState = (cellId) => {
+export const getCellNextState = (cellId) => {
 	const coords = cellId.split('-');
 	const neighborhood = getNeighborhood(+coords[0], +coords[1]);
 	const numLiveNeighbors = getLiveNeighbors(neighborhood).length;
@@ -91,13 +93,8 @@ const getCellNextState = (cellId) => {
 	return nextCellState;
 };
 
-
-
 // Step is a single iteration of the game
-// let count = 3;
 export const step = () => {
-	// count--;
-
 	const boardNextState = {...boardState.cells};
 
 	for (const cellId in boardState.cells) {
@@ -105,10 +102,7 @@ export const step = () => {
 		boardNextState[cellId] = cellNextState;
 	}
 
-		// if (count) {
-			setNextState(boardNextState);
-		// } else if (count === 0) {
-		// 	clearInterval(boardState.interval);
-		// }
+
+	setNextState(boardNextState);
 };
 

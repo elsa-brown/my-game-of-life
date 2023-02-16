@@ -565,141 +565,68 @@ const initButtons = ()=>{
     (0, _constants.soundButton).addEventListener("click", ()=>(0, _eventHandlersJs.toggleSound)());
 };
 const initAudio = ()=>{
-    (0, _constants.audioNature).volume = 0.3;
+    (0, _constants.audioNature).volume = (0, _constants.defaultVolNature);
     (0, _constants.audioFire).volume = 0;
 };
 const initBoard = ()=>{
     const board = document.getElementById("board");
-    for(let x = 0; x < (0, _constants.boardState).width; x++){
+    for(let x = 0; x < (0, _constants.boardState).dimension; x++){
         const row = document.createElement("div");
         row.className = "row";
         row.id = x;
         board.appendChild(row);
-        for(let y = 0; y < (0, _constants.boardState).height; y++){
+        for(let y = 0; y < (0, _constants.boardState).dimension; y++){
             const cellId = `${x}-${y}`;
             (0, _constants.boardState).cells[cellId] = "dormant";
             const cell = document.createElement("div");
             cell.id = cellId;
             cell.classList.add("dormant");
             row.appendChild(cell);
-            const img = document.createElement("img");
-            cell.appendChild(img);
         }
     }
 };
 initButtons();
-initAudio();
 initBoard();
 
 },{"./modules/constants":"e0Zqh","./modules/eventHandlers.js":"cw0Bk"}],"e0Zqh":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "intervalMs", ()=>intervalMs);
-parcelHelpers.export(exports, "fire", ()=>fire);
-parcelHelpers.export(exports, "getBloom", ()=>getBloom);
+parcelHelpers.export(exports, "getBloomName", ()=>getBloomName);
 parcelHelpers.export(exports, "audioNature", ()=>audioNature);
 parcelHelpers.export(exports, "audioFire", ()=>audioFire);
+parcelHelpers.export(exports, "defaultVolNature", ()=>defaultVolNature);
 parcelHelpers.export(exports, "playButton", ()=>playButton);
 parcelHelpers.export(exports, "clearButton", ()=>clearButton);
 parcelHelpers.export(exports, "soundButton", ()=>soundButton);
 parcelHelpers.export(exports, "boardState", ()=>boardState);
-var _bloom11XGif = require("../images/bloom-1-1x.gif");
-var _bloom11XGifDefault = parcelHelpers.interopDefault(_bloom11XGif);
-var _bloom21XGif = require("../images/bloom-2-1x.gif");
-var _bloom21XGifDefault = parcelHelpers.interopDefault(_bloom21XGif);
-var _bloom31XGif = require("../images/bloom-3-1x.gif");
-var _bloom31XGifDefault = parcelHelpers.interopDefault(_bloom31XGif);
-var _bloom41XGif = require("../images/bloom-4-1x.gif");
-var _bloom41XGifDefault = parcelHelpers.interopDefault(_bloom41XGif);
-var _bloom572PxGif = require("../images/bloom-5-72px.gif");
-var _bloom572PxGifDefault = parcelHelpers.interopDefault(_bloom572PxGif);
-var _fire1XGif = require("../images/fire-1x.gif");
-var _fire1XGifDefault = parcelHelpers.interopDefault(_fire1XGif);
-const intervalMs = 4000;
-const fire = (0, _fire1XGifDefault.default);
-const blooms = [
-    (0, _bloom11XGifDefault.default),
-    (0, _bloom21XGifDefault.default),
-    (0, _bloom31XGifDefault.default),
-    (0, _bloom41XGifDefault.default),
-    (0, _bloom572PxGifDefault.default)
-];
-const getBloom = ()=>{
-    let idx = Math.floor(Math.random() * 5);
-    return blooms[idx];
+const intervalMs = 2200;
+const getBloomName = ()=>{
+    const bloomNames = [
+        "bloom1",
+        "bloom2",
+        "bloom3",
+        "bloom4",
+        "bloom5"
+    ];
+    const idx = Math.floor(Math.random() * 6);
+    return bloomNames[idx];
 };
 const audioNature = document.getElementById("audioPlayer");
 const audioFire = document.getElementById("fireAudioPlayer");
+const defaultVolNature = 0.2;
 const playButton = document.getElementById("play");
 const clearButton = document.getElementById("clear");
 const soundButton = document.getElementById("sound");
 const boardState = {
-    width: 18,
-    height: 18,
+    dimension: 18,
     interval: null,
     cells: {},
     playing: false,
-    hasPlayed: false
-}; /*
-gameState =  {
-	dimension: 18,
-	intervals: null,
-	cells: {},
-	playing: false,
-	hasPlayed: false,	
-}
-*/ 
+    isClear: true
+};
 
-},{"../images/bloom-1-1x.gif":"9F8ZI","../images/bloom-2-1x.gif":"8ugN4","../images/bloom-3-1x.gif":"7oCXt","../images/bloom-4-1x.gif":"fMaee","../images/bloom-5-72px.gif":"5P0hS","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../images/fire-1x.gif":"adHKM"}],"9F8ZI":[function(require,module,exports) {
-module.exports = require("4988ff20c5d160e4").getBundleURL("bLxZJ") + "bloom-1-1x.0b776264.gif" + "?" + Date.now();
-
-},{"4988ff20c5d160e4":"lgJ39"}],"lgJ39":[function(require,module,exports) {
-"use strict";
-var bundleURL = {};
-function getBundleURLCached(id) {
-    var value = bundleURL[id];
-    if (!value) {
-        value = getBundleURL();
-        bundleURL[id] = value;
-    }
-    return value;
-}
-function getBundleURL() {
-    try {
-        throw new Error();
-    } catch (err) {
-        var matches = ("" + err.stack).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^)\n]+/g);
-        if (matches) // The first two stack frames will be this function and getBundleURLCached.
-        // Use the 3rd one, which will be a runtime in the original bundle.
-        return getBaseURL(matches[2]);
-    }
-    return "/";
-}
-function getBaseURL(url) {
-    return ("" + url).replace(/^((?:https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/.+)\/[^/]+$/, "$1") + "/";
-} // TODO: Replace uses with `new URL(url).origin` when ie11 is no longer supported.
-function getOrigin(url) {
-    var matches = ("" + url).match(/(https?|file|ftp|(chrome|moz|safari-web)-extension):\/\/[^/]+/);
-    if (!matches) throw new Error("Origin not found");
-    return matches[0];
-}
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-exports.getOrigin = getOrigin;
-
-},{}],"8ugN4":[function(require,module,exports) {
-module.exports = require("253371f0b61631ec").getBundleURL("bLxZJ") + "bloom-2-1x.89ff1566.gif" + "?" + Date.now();
-
-},{"253371f0b61631ec":"lgJ39"}],"7oCXt":[function(require,module,exports) {
-module.exports = require("d7c3ebed3289fef9").getBundleURL("bLxZJ") + "bloom-3-1x.4e6f08a7.gif" + "?" + Date.now();
-
-},{"d7c3ebed3289fef9":"lgJ39"}],"fMaee":[function(require,module,exports) {
-module.exports = require("5321a321f2186079").getBundleURL("bLxZJ") + "bloom-4-1x.9d956b3a.gif" + "?" + Date.now();
-
-},{"5321a321f2186079":"lgJ39"}],"5P0hS":[function(require,module,exports) {
-module.exports = require("3e74793eb9ae202c").getBundleURL("bLxZJ") + "bloom-5-72px.2597b025.gif" + "?" + Date.now();
-
-},{"3e74793eb9ae202c":"lgJ39"}],"gkKU3":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -729,10 +656,7 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"adHKM":[function(require,module,exports) {
-module.exports = require("88e879d3e4dbdcb7").getBundleURL("bLxZJ") + "fire-1x.ad58d418.gif" + "?" + Date.now();
-
-},{"88e879d3e4dbdcb7":"lgJ39"}],"cw0Bk":[function(require,module,exports) {
+},{}],"cw0Bk":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "togglePlay", ()=>togglePlay);
@@ -740,44 +664,47 @@ parcelHelpers.export(exports, "clearBoard", ()=>clearBoard);
 parcelHelpers.export(exports, "toggleSound", ()=>toggleSound);
 var _constants = require("./constants");
 var _game = require("./game");
+// Start/Stop Game
+const genesis = (cellId)=>{
+    const coords = cellId.split("-");
+    const x = +coords[0];
+    const y = +coords[1];
+    const lifeForce = Math.floor((x + y) * Math.random()) % 4 === 0;
+    return lifeForce ? "alive" : "dormant";
+// if (lifeForce) { nextBoardState[cellId] = 'alive'; }
+};
 const togglePlay = ()=>{
     if (!(0, _constants.boardState).playing) {
         const nextBoardState = {
             ...(0, _constants.boardState).cells
         };
-        // console.log('FIRST: ', boardState.cells);
-        for(const cellId in nextBoardState){
-            const coords = cellId.split("-");
-            const x = +coords[0];
-            const y = +coords[1];
-            // const lifeForce = ['3-4', '4-5', '5-5', '5-4', '5-3']
-            const lifeForce = Math.floor((x + y) * Math.random()) % 3 === 0;
-            // console.log(lifeForce)
-            if (lifeForce) nextBoardState[cellId] = "alive";
-        }
+        for(const cellId in nextBoardState)if ((0, _constants.boardState).isClear) nextBoardState[cellId] = genesis(cellId);
+        else nextBoardState[cellId] = (0, _game.getCellNextState)(cellId);
         (0, _game.setNextState)(nextBoardState);
         (0, _constants.playButton).innerHTML = "Pause";
         (0, _constants.boardState).playing = true;
+        (0, _constants.boardState).isClear = false;
         (0, _constants.boardState).interval = setInterval((0, _game.step), (0, _constants.intervalMs));
     } else {
         clearInterval((0, _constants.boardState).interval);
-        (0, _constants.boardState).interval = null;
         (0, _constants.playButton).innerHTML = "Play";
         (0, _constants.boardState).playing = false;
+        (0, _constants.boardState).interval = null;
     }
 };
 const clearBoard = ()=>{
-    let nextBoardState = Object.assign({}, (0, _constants.boardState).cells);
-    (0, _game.forEachCell)((cell, row, col)=>{
-        nextBoardState[`${col}-${row}`] = "dormant";
-    });
+    const nextBoardState = {
+        ...(0, _constants.boardState).cells
+    };
+    for(const cellId in nextBoardState)nextBoardState[cellId] = "dormant";
     (0, _game.setNextState)(nextBoardState);
     clearInterval((0, _constants.boardState).interval);
-    (0, _constants.boardState).interval = null;
-    (0, _constants.boardState).playing = false;
+    (0, _constants.audioNature).volume = (0, _constants.defaultVolNature);
+    (0, _constants.audioFire).volume = 0;
     (0, _constants.playButton).innerHTML = "Play";
-    (0, _constants.audioNature).volume = 0.05;
-    (0, _constants.boardState).firstPlay = false;
+    (0, _constants.boardState).playing = false;
+    (0, _constants.boardState).isClear = true;
+    (0, _constants.boardState).interval = null;
 };
 // Toggle Audio
 let soundOn = false;
@@ -786,11 +713,13 @@ const toggleSound = (evt)=>{
         (0, _constants.audioNature).pause();
         (0, _constants.audioFire).pause();
         (0, _constants.soundButton).classList.add("off");
+        (0, _constants.soundButton).setAttribute("aria-label", "sound on");
         soundOn = false;
     } else {
         (0, _constants.audioNature).play();
         (0, _constants.audioFire).play();
         (0, _constants.soundButton).classList.remove("off");
+        (0, _constants.soundButton).setAttribute("aria-label", "sound off");
         soundOn = true;
     }
 };
@@ -799,29 +728,34 @@ const toggleSound = (evt)=>{
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "setNextState", ()=>setNextState);
+parcelHelpers.export(exports, "getCellNextState", ()=>getCellNextState);
 parcelHelpers.export(exports, "step", ()=>step);
 var _constants = require("./constants");
 var _audioUtils = require("./audioUtils");
 const setNextState = (nextBoardState)=>{
     let deadCount = 0;
+    let cell;
     for(const cellId in nextBoardState){
         const currCellState = (0, _constants.boardState).cells[cellId];
         const nextCellState = nextBoardState[cellId];
-        const cell = document.getElementById(cellId);
-        cell.className = nextCellState;
-        if (nextCellState === "alive" && currCellState === "alive") continue;
-        if (nextCellState == "alive") cell.querySelector("img").src = (0, _constants.getBloom)();
-        if (nextCellState === "dead") {
-            if (currCellState !== "dead") {
-                cell.querySelector("img").src = (0, _constants.fire);
+        const cellWillDie = nextCellState === "dead";
+        if (!cellWillDie && currCellState !== nextCellState) {
+            cell = document.getElementById(cellId);
+            cell.className = nextCellState;
+            if (nextCellState === "alive") cell.classList.add((0, _constants.getBloomName)());
+        } else if (cellWillDie) {
+            cell = document.getElementById(cellId);
+            cell.className = nextCellState;
+            if (currCellState === "dead") {
+                cell.classList.remove("dying");
+                cell.classList.add("gone");
+            } else {
+                cell.classList.add("dying");
                 deadCount++;
-            } else // cell.style.backgroundColor = 'white';
-            // cell.querySelector('img').src = '';
-            cell.classList.add("has-died");
+            }
         }
         (0, _constants.boardState).cells[cellId] = nextCellState;
     }
-    console.log("deadCount: ", deadCount);
     (0, _audioUtils.setVolume)(deadCount);
 };
 const getLiveNeighbors = (neighborhood)=>{
@@ -835,13 +769,12 @@ const getNeighborhood = (x, y)=>{
     for(let row = x - 1; row <= x + 1; row++)for(let col = y - 1; col <= y + 1; col++){
         const isInBounds = row >= 0 && // x
         col >= 0 && // y
-        row < (0, _constants.boardState).width && col < (0, _constants.boardState).height;
+        row < (0, _constants.boardState).dimension && col < (0, _constants.boardState).dimension;
         const isSelf = col === x && row === y;
         if (isInBounds && !isSelf) neighborhood.push(`${row}-${col}`);
     }
     return neighborhood;
 };
-// Determine next state for a single cell, based on numbr of live neighbors
 const getCellNextState = (cellId)=>{
     const coords = cellId.split("-");
     const neighborhood = getNeighborhood(+coords[0], +coords[1]);
@@ -854,7 +787,6 @@ const getCellNextState = (cellId)=>{
     return nextCellState;
 };
 const step = ()=>{
-    // count--;
     const boardNextState = {
         ...(0, _constants.boardState).cells
     };
@@ -862,11 +794,7 @@ const step = ()=>{
         const cellNextState = getCellNextState(cellId);
         boardNextState[cellId] = cellNextState;
     }
-    // if (count) {
     setNextState(boardNextState);
-// } else if (count === 0) {
-// 	clearInterval(boardState.interval);
-// }
 };
 
 },{"./constants":"e0Zqh","./audioUtils":"dVQ2D","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dVQ2D":[function(require,module,exports) {
@@ -874,27 +802,19 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "setVolume", ()=>setVolume);
 var _constants = require("./constants");
-/* SCROLL TO BOTTOM */ const getVolumeNature = (volumeFire)=>{
-    let volumeNature;
-    // if (boardState.hasPlayed) {
-    // 	boardState.hasPlayed = !!boardState.hasPlayed // false
-    // 	volumeNature = 0.5
-    // } else {
-    volumeNature = 1 - volumeFire;
-    // }
-    return volumeNature;
+const maxVol = 0.6;
+const getVolumeNature = (volumeFire)=>{
+    return volumeFire ? maxVol - volumeFire + (0, _constants.defaultVolNature) : (0, _constants.defaultVolNature) * 2;
 };
-const getVolumeFire = ()=>{
-    let volumeFire;
-    const numTotalCells = Object.keys((0, _constants.boardState).cells).length;
-    const numDeadCells = Object.values((0, _constants.boardState).cells).filter((cell)=>cell === "dead").length;
-    const numDeadCellsAdjusted = numDeadCells + 70;
-    volumeFire = numDeadCells ? numDeadCellsAdjusted / numTotalCells : 0;
-    return volumeFire;
+const getVolumeFire = (deadCount)=>{
+    if (!deadCount) return 0;
+    const numTotalCells = (0, _constants.boardState).dimension * 2;
+    const deadCountAdjusted = deadCount + 100;
+    const volumeFire = deadCountAdjusted ? deadCountAdjusted / numTotalCells * 0.1 : 0;
+    return volumeFire > maxVol ? maxVol : volumeFire;
 };
-const setVolume = ()=>{
-    const volumeFire = getVolumeFire();
-    console.log("volumeFIre: ", volumeFire);
+const setVolume = (deadCount)=>{
+    const volumeFire = getVolumeFire(deadCount);
     const volumeNature = getVolumeNature(volumeFire);
     (0, _constants.audioFire).volume = volumeFire;
     (0, _constants.audioNature).volume = volumeNature;

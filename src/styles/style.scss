@@ -14,6 +14,7 @@ a {
   &:hover {
     color: blue;
     border: solid 2px blue;
+    border-radius: 2px;
   }
 }
 
@@ -24,12 +25,6 @@ body {
   background-size: cover;
   font-family: 'Bellefair', serif;
   overflow: hidden;
-}
-
-.layout {
-  display: grid;
-  grid-template-columns: 1fr 10fr 1fr;
-  column-gap: 4rem;
 }
 
 button {
@@ -63,6 +58,7 @@ h1 {
 
 header {
   width: $s5;
+  position: absolute;
 
   & > a {
     height: 48px;
@@ -71,14 +67,20 @@ header {
     align-items: center;
     justify-content: center;
     font-size: $s2;
+
+    & > span {
+      height: 32px;
+    }
   }
 }
 
 main {
   display: flex;
+  align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 1rem;
+  height: 100%;
+  padding: $s0 0;
 }
 
 .controls {
@@ -94,6 +96,7 @@ main {
   background-image: url(../images/pond-square.gif);
   background-size: cover;
   scale: 1.05;
+  height: fit-content;
   box-shadow: inset -1rem -1rem 2rem rgb(10 10 10 / 30%);
 }
 
@@ -107,23 +110,57 @@ main {
   }
 
   div:not(.row) {
-    width: 32px;
-    height: 32px;
-    border: solid 2px transparent;
+    width: 34px;
+    height: 34px;
+    border: solid 1px transparent;
     background-size: 100%;
-    animation: fadeIn 2.1s ease-in;
-
-    &.has-died {
-      opacity: 0.5;
-    }
-
+    background-repeat: no-repeat;
   }
 
   img {
-    width: 28;
+    width: 32;
   }
 }
 
+.alive {
+  animation: 2.2s ease-in-out fadeInFire;
+}
+
+.bloom1 {
+  background-image: url('../images/bloom-1-72px.gif');
+}
+
+.bloom2 {
+  background-image: url('../images/bloom-2.gif');
+}
+
+.bloom3 {
+  background-image: url('../images/bloom-3-72px.gif');
+}
+
+.bloom4 {
+  background-image: url('../images/bloom-4-72px.gif');
+}
+
+.bloom5 {
+  background-image: url('../images/bloom-5-72px.gif');
+}
+
+.dead {
+  background-image: url('../images/fire-72px.gif');  
+  opacity: 0;
+
+  &.dying {
+    opacity: 1;
+    animation: 2.2s ease-in fadeInFire;
+  }
+
+  &.gone {
+    opacity: 0.05;;
+    animation: 1.1s ease-in fadeOut;
+  }
+  
+}
 
 .table {
   width: 682px;
@@ -135,10 +172,6 @@ main {
   border-radius: 800px;
   background-image: url(../images/pond-square.gif);
   background-size: cover;
-}
-
-#main {
-  border-radius: 800px;
 }
 
 /* links */
@@ -165,8 +198,6 @@ main {
   text-decoration: none;
 }
 
-
-
 /* clear button */
 
 #clear:active {
@@ -175,7 +206,7 @@ main {
 
 /* animations */
 
-@keyframes fadeIn {
+@-webkit-keyframes fadeIn {
   from {
     opacity: 0;
   }
@@ -184,7 +215,7 @@ main {
   }
 }
 
-@keyframes fadebloom {
+@-webkit-keyframes fadeInFire {
   from {
     opacity: 0;
   }
@@ -192,30 +223,58 @@ main {
     opacity: 0.5
   }
   50% {
-    opacity: 1
+    opacity: 1;
   }
-  75% {
-    opacity: 0.5;
+  to {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeOut {
+  from {
+    opacity: 1;
   }
   to {
     opacity: 0;
   }
 }
 
-@-webkit-keyframes fade {
+@-webkit-keyframes fadeInOut {
   from {
     opacity: 0;
+  }
+  25% {
+    opacity: 0.5
   }
   50% {
     opacity: 1;
   }
   75% {
-    opacity: 0.5;
+    opacity: 1;
   }
   to {
-    opacity: 0;
+    opacity: 0.05;
   }
 }
+
+// @keyframes fadebloom {
+  
+// }
+
+// @-webkit-keyframes fade {
+//   from {
+//     opacity: 0;
+//   }
+//   50% {
+//     opacity: 1;
+//   }
+//   75% {
+//     opacity: 0.5;
+//   }
+//   to {
+//     opacity: 0;
+//   }
+// }
 
 /* media queries */
 
