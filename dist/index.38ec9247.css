@@ -152,6 +152,34 @@ template, [hidden] {
   display: none;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: .5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -277,26 +305,26 @@ main {
 }
 
 .alive {
-  animation: 2.2s ease-in-out fadeInFire;
+  animation: 2.2s ease-in-out fadeIn;
 }
 
-.bloom1 {
+.alive.bloom1 {
   background-image: url("bloom-1-72px.1b53e3c6.gif");
 }
 
-.bloom2 {
+.alive.bloom2 {
   background-image: url("bloom-2.b0bfa4cf.gif");
 }
 
-.bloom3 {
+.alive.bloom3 {
   background-image: url("bloom-3-72px.e0581611.gif");
 }
 
-.bloom4 {
+.alive.bloom4 {
   background-image: url("bloom-4-72px.fd3b963c.gif");
 }
 
-.bloom5 {
+.alive.bloom5 {
   background-image: url("bloom-5-72px.2597b025.gif");
 }
 
@@ -307,104 +335,12 @@ main {
 
 .dead.dying {
   opacity: 1;
-  animation: 2.2s ease-in fadeInFire;
+  animation: 2.2s ease-in fadeIn;
 }
 
 .dead.gone {
   opacity: .05;
   animation: 1.1s ease-in fadeOut;
-}
-
-.table {
-  width: 682px;
-  border-collapse: collapse;
-  background-image: url("pond-square.1d383567.gif");
-  background-size: cover;
-  border-radius: 800px;
-  margin: 50px auto;
-  position: relative;
-}
-
-.about {
-  margin-top: 30px;
-  font-size: 24px;
-  text-decoration: none;
-}
-
-.about a {
-  text-decoration: none;
-}
-
-.about a:hover {
-  cursor: help;
-}
-
-.about a:focus, .about a:visited {
-  text-decoration: none;
-}
-
-#clear:active {
-  color: #0000;
-}
-
-@-webkit-keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@-webkit-keyframes fadeInFire {
-  from {
-    opacity: 0;
-  }
-
-  25% {
-    opacity: .5;
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@-webkit-keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
-}
-
-@-webkit-keyframes fadeInOut {
-  from {
-    opacity: 0;
-  }
-
-  25% {
-    opacity: .5;
-  }
-
-  50% {
-    opacity: 1;
-  }
-
-  75% {
-    opacity: 1;
-  }
-
-  to {
-    opacity: .05;
-  }
 }
 
 /*# sourceMappingURL=index.38ec9247.css.map */
