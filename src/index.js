@@ -9,8 +9,8 @@ import {
 	togglePlay, 
 	clearBoard, 
 	toggleSound 
-	} from './modules/eventHandlers.js'
-
+	} from './modules/eventHandlers.js';
+	
 const initAudio = () => {
 	audio.nature.volume = defaultVolNature;
 	audio.fire.volume = 0;
